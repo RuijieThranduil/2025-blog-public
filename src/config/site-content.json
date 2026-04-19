@@ -1,21 +1,23 @@
 {
 	"meta": {
-		"title": "Rj",
+		"title": "Charels Ruijie Blog",
 		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
-		"username": "Charles"
+		"username": "Kleiner"
 	},
 	"theme": {
-		"colorBrand": "#2a48f3",
-		"colorPrimary": "#e6e8e8",
-		"colorSecondary": "#acadae",
-		"colorBrandSecondary": "#51d0b9",
-		"colorBg": "#0a051f",
-		"colorBorder": "#8a8a8a5e",
-		"colorCard": "#ffffff0e",
-		"colorArticle": "#6f6f6f33"
+		"colorBrand": "#2fcbe7",
+		"colorPrimary": "#5B423F",
+		"colorSecondary": "#8b7667",
+		"colorBrandSecondary": "#eec25e",
+		"colorBg": "#d4e8f3",
+		"colorBorder": "#ffffff",
+		"colorCard": "#ffffff99",
+		"colorArticle": "#ffffffcc"
 	},
 	"backgroundColors": [
-		"#16007b"
+		"#f7da3987",
+		"#8fdbe9",
+		"#fffef8"
 	],
 	"artImages": [
 		{
