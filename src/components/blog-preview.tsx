@@ -15,9 +15,10 @@ type BlogPreviewProps = {
 	summary?: string
 	cover?: string
 	slug?: string
+	pdfUrl?: string
 }
 
-export function BlogPreview({ markdown, title, tags, date, summary, cover, slug }: BlogPreviewProps) {
+export function BlogPreview({ markdown, title, tags, date, summary, cover, slug, pdfUrl }: BlogPreviewProps) {
 	const { maxSM: isMobile } = useSize()
 	const { content, toc, loading } = useMarkdownRender(markdown)
 	const { siteContent } = useConfigStore()
@@ -47,7 +48,16 @@ export function BlogPreview({ markdown, title, tags, date, summary, cover, slug 
 
 					{summary && summaryInContent && <div className='text-secondary mt-6 cursor-text text-center text-sm'>“{summary}”</div>}
 
-					<div className='prose mt-6 max-w-none cursor-text'>{content}</div>
+					{pdfUrl ? (
+						<div className='mt-6 space-y-3'>
+							<a className='text-sm underline' href={pdfUrl} target='_blank' rel='noreferrer'>
+								打开 PDF（新窗口）
+							</a>
+							<iframe src={pdfUrl} className='h-[75vh] w-full rounded-lg border' title={`${title} PDF`} />
+						</div>
+					) : (
+						<div className='prose mt-6 max-w-none cursor-text'>{content}</div>
+					)}
 				</div>
 			</motion.article>
 
