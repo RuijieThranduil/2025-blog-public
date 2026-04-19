@@ -10,18 +10,30 @@ export type LoadedBlog = {
 	cover?: string
 }
 
+export function normalizeBlogSlug(slug: string): string {
+	if (!slug) return ''
+
+	try {
+		return decodeURIComponent(slug)
+	} catch {
+		return slug
+	}
+}
+
 /**
  * Load blog data from public/blogs/{slug}
  * Used by both view page and edit page
  */
 export async function loadBlog(slug: string): Promise<LoadedBlog> {
-	if (!slug) {
+	const normalizedSlug = normalizeBlogSlug(slug)
+
+	if (!normalizedSlug) {
 		throw new Error('Slug is required')
 	}
 
 	// Load config.json
 	let config: BlogConfig = {}
-	const configRes = await fetch(`/blogs/${encodeURIComponent(slug)}/config.json`)
+	const configRes = await fetch(`/blogs/${encodeURIComponent(normalizedSlug)}/config.json`)
 	if (configRes.ok) {
 		try {
 			config = await configRes.json()
@@ -31,9 +43,9 @@ export async function loadBlog(slug: string): Promise<LoadedBlog> {
 	}
 
 	// Load index.md
-	const mdRes = await fetch(`/blogs/${encodeURIComponent(slug)}/index.md`)
+	const mdRes = await fetch(`/blogs/${encodeURIComponent(normalizedSlug)}/index.md`)
 	if (!mdRes.ok) {
-		const fallback = await loadFromIndexFallback(slug)
+		const fallback = await loadFromIndexFallback(normalizedSlug)
 		if (fallback) {
 			return fallback
 		}
@@ -42,7 +54,7 @@ export async function loadBlog(slug: string): Promise<LoadedBlog> {
 	const markdown = await mdRes.text()
 
 	return {
-		slug,
+		slug: normalizedSlug,
 		config,
 		markdown,
 		cover: config.cover
