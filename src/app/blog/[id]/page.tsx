@@ -51,7 +51,7 @@ export default function Page() {
 		if (!url) return undefined
 		return url
 	}
-	const pdfUrl = resolveAssetUrl(blog?.config.pdf)
+	const pdfUrl = blog?.config.pdf && /\.pdf([?#].*)?$/i.test(blog.config.pdf) ? resolveAssetUrl(blog.config.pdf) : undefined
 
 
 	const handleEdit = () => {

@@ -66,7 +66,8 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 	const uploadedHashes = new Set<string>()
 	let mdToUpload = form.md
 	let coverPath: string | undefined
-	let pdfPath: string | undefined = form.pdf
+	const looksLikePdf = (value?: string) => !!value && /\.pdf([?#].*)?$/i.test(value)
+	let pdfPath: string | undefined = looksLikePdf(form.pdf) ? form.pdf : undefined
 
 	// prepare tree items for all files
 	const treeItems: TreeItem[] = []
@@ -113,7 +114,7 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 	// handle pdf upload
 	if (pdfFile) {
 		const pdfHash = await hashFileSHA256(pdfFile)
-		const pdfExt = getFileExt(pdfFile.name) || '.pdf'
+		const pdfExt = '.pdf'
 		const pdfFilename = `${pdfHash}${pdfExt}`
 		const pdfRepoPath = `${basePath}/${pdfFilename}`
 		const pdfPublicPath = `/blogs/${form.slug}/${pdfFilename}`

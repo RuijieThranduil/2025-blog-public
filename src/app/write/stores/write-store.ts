@@ -201,6 +201,7 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 			}
 
 			// Set form
+			const normalizedPdf = blog.config.pdf && /\.pdf([?#].*)?$/i.test(blog.config.pdf) ? blog.config.pdf : ''
 			set({
 				mode: 'edit',
 				originalSlug: slug,
@@ -208,7 +209,7 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 					slug,
 					title: blog.config.title || '',
 					md: blog.markdown,
-					pdf: blog.config.pdf || '',
+					pdf: normalizedPdf,
 					tags: blog.config.tags || [],
 					date: blog.config.date ? formatDateTimeLocal(new Date(blog.config.date)) : formatDateTimeLocal(),
 					summary: blog.config.summary || '',
