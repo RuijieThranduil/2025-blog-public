@@ -1,16 +1,16 @@
 [
   {
     "slug": "llm-knowledge-base",
-    "title": "LLM Knowledge Base（导入版）",
+    "title": "LLM Knowledge Base · MOC 导图式笔记",
     "tags": [
       "LLM",
-      "Transformer",
+      "MOC",
+      "知识库",
       "RAG",
-      "Alignment",
       "学习笔记"
     ],
-    "date": "2026-04-19T04:05",
-    "summary": "已从 GitHub 仓库导入的 LLM 知识库笔记，覆盖 Foundations、Pretraining、Finetuning、Alignment、Inference、RAG、Evaluation 等模块。",
+    "date": "2026-04-19T05:00",
+    "summary": "按 MOC 导图重构的 LLM 知识库：模块化、卡片化、可复习、可跳转、可扩展。",
     "cover": "",
     "hidden": false,
     "category": "学习笔记"
