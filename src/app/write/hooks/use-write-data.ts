@@ -23,6 +23,7 @@ export function useWriteData() {
 	return {
 		markdown: processedMarkdown,
 		title,
-		date
+		date,
+		pdfUrl: form.pdf
 	}
 }
