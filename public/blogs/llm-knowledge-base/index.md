@@ -11,6 +11,7 @@
 - [05 Inference：推理与部署](/blog/llm-inference)
 - [06 RAG & Agents：检索与智能体](/blog/llm-rag-agents)
 - [07 Evaluation：评估](/blog/llm-evaluation)
+- [PDF 预览 Demo](/blog/llm-pdf-demo)
 
 ## 学习路径建议
 

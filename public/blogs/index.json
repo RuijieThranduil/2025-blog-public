@@ -1,5 +1,20 @@
 [
   {
+    "slug": "llm-pdf-demo",
+    "title": "LLM PDF 预览 Demo",
+    "tags": [
+      "LLM",
+      "PDF",
+      "Demo"
+    ],
+    "date": "2026-04-19T06:10",
+    "summary": "测试 PDF 内嵌预览模式（iframe）。",
+    "cover": "",
+    "hidden": false,
+    "category": "Large Language Model",
+    "pdf": "/blogs/llm-pdf-demo/llm-pdf-demo.pdf"
+  },
+  {
     "slug": "llm-knowledge-base",
     "title": "LLM Knowledge Base · MOC 导图",
     "tags": [
