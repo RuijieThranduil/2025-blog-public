@@ -127,16 +127,6 @@
     "category": "Large Language Model"
   },
   {
-    "slug": "nonlinear",
-    "title": "非线性模型",
-    "tags": [],
-    "date": "2026-04-19T03:42",
-    "summary": "",
-    "pdf": "/blogs/nonlinear/8dbf0efd39ab0c19.pdf",
-    "hidden": false,
-    "category": ""
-  },
-  {
     "slug": "Recommendation System",
     "title": "Recommendation_System",
     "tags": [],
@@ -144,28 +134,6 @@
     "summary": "",
     "cover": "/blogs/Recommendation System/0ce3fb60d5ae8367.webp",
     "pdf": "/blogs/Recommendation System/30657458b79f3785.pdf",
-    "hidden": false,
-    "category": ""
-  },
-  {
-    "slug": "teas",
-    "title": "teas",
-    "tags": [],
-    "date": "2026-04-19T01:29",
-    "summary": "",
-    "cover": "",
-    "pdf": "/blogs/teas/43ff68687a4748f1.png",
-    "hidden": false,
-    "category": ""
-  },
-  {
-    "slug": "test",
-    "title": "test",
-    "tags": [],
-    "date": "2026-04-19T01:28",
-    "summary": "",
-    "cover": "",
-    "pdf": "/blogs/test/43ff68687a4748f1.png",
     "hidden": false,
     "category": ""
   },
