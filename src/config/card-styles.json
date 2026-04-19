@@ -5,7 +5,7 @@
 		"order": 3,
 		"offsetX": null,
 		"offsetY": null,
-		"enabled": false
+		"enabled": true
 	},
 	"hiCard": {
 		"width": 360,
@@ -22,7 +22,7 @@
 		"order": 4,
 		"offsetX": null,
 		"offsetY": null,
-		"enabled": false
+		"enabled": true
 	},
 	"calendarCard": {
 		"width": 350,
@@ -30,7 +30,7 @@
 		"order": 5,
 		"offsetX": null,
 		"offsetY": null,
-		"enabled": false
+		"enabled": true
 	},
 	"musicCard": {
 		"width": 293,
@@ -39,7 +39,7 @@
 		"order": 6,
 		"offsetX": null,
 		"offsetY": null,
-		"enabled": false
+		"enabled": true
 	},
 	"socialButtons": {
 		"width": 315,
@@ -63,7 +63,7 @@
 		"order": 8,
 		"offsetX": null,
 		"offsetY": null,
-		"enabled": false
+		"enabled": true
 	},
 	"writeButtons": {
 		"height": 42,
