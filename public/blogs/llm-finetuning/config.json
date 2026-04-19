@@ -1,0 +1,9 @@
+{
+  "title": "LLM · Finetuning 微调",
+  "tags": ["LLM", "Finetuning", "LoRA"],
+  "date": "2026-04-19T05:33",
+  "summary": "SFT、指令微调与 LoRA/PEFT 的卡片化整理。",
+  "cover": "",
+  "hidden": false,
+  "category": "Large Language Model"
+}

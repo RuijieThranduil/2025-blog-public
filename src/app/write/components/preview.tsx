@@ -23,6 +23,7 @@ export function WritePreview({ form, coverPreviewUrl, onClose, slug }: WritePrev
 					summary={form.summary}
 					cover={coverPreviewUrl || undefined}
 					slug={slug}
+					pdfUrl={previewData.pdfUrl}
 				/>
 			</div>
 			<motion.button

@@ -1,0 +1,9 @@
+{
+  "title": "LLM · Pretraining 预训练",
+  "tags": ["LLM", "Pretraining", "Scaling Law"],
+  "date": "2026-04-19T05:32",
+  "summary": "数据清洗、预训练目标与 Scaling Law 的模块化知识点。",
+  "cover": "",
+  "hidden": false,
+  "category": "Large Language Model"
+}
