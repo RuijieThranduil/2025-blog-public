@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'motion/react'
-import { ArrowUpRight, Globe2, Plus, Trash2 } from 'lucide-react'
+import { ArrowUpRight, Globe2, Plus, Sparkles, Trash2, UserRoundPlus } from 'lucide-react'
 
 interface GuestCard {
 	name: string
@@ -47,6 +47,8 @@ export default function GridView() {
 		window.localStorage.setItem(STORAGE_KEY, JSON.stringify(guestCards))
 	}, [guestCards])
 
+	const categories = useMemo(() => guestCards.map(guest => buildGuestCategory(guest.name)), [guestCards])
+
 	const handleCreateGuest = () => {
 		const name = draft.name.trim()
 		const description = draft.description.trim()
@@ -69,33 +71,82 @@ export default function GridView() {
 	}
 
 	return (
-		<div className='mx-auto flex w-full max-w-7xl flex-col gap-10 px-6 pt-24 pb-16 max-sm:px-4 max-sm:pt-20'>
-			<section className='card mx-auto w-full max-w-4xl overflow-hidden px-8 py-10 max-sm:px-5 max-sm:py-8'>
-				<div className='flex flex-col gap-6'>
-					<div className='inline-flex w-fit items-center gap-3 rounded-full border border-white/70 bg-white/70 px-4 py-2 text-sm text-[#4f6474] shadow-[0_10px_30px_rgba(159,177,193,0.12)]'>
-						<span className='flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#35d4c5] shadow-[0_8px_24px_rgba(53,212,197,0.18)]'>
-							<Globe2 className='h-5 w-5' />
-						</span>
-						<span className='font-medium tracking-[0.14em] uppercase'>Guest Archive</span>
-					</div>
-
-					<div className='flex flex-col gap-4 md:flex-row md:items-end md:justify-between'>
-						<div className='space-y-4'>
-							<h1 className='text-3xl font-semibold tracking-[-0.04em] text-[#1c2a38] max-sm:text-2xl'>Invited Guest Article and Research Share</h1>
-							<p className='max-w-2xl text-sm leading-7 text-[#6d7c89]'>保留小卡片样式。你可以直接在前端新增 guest，卡片会链接到对应的分类文章页。</p>
+		<div className='mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 pt-40 pb-20 max-sm:px-4 max-sm:pt-32'>
+			<section className='card overflow-hidden px-6 py-6 max-sm:px-4'>
+				<div className='grid gap-8 lg:grid-cols-[1.35fr_0.85fr]'>
+					<div className='space-y-6'>
+						<div className='inline-flex w-fit items-center gap-3 rounded-full border border-white/80 bg-white/80 px-4 py-2 text-sm text-[#546674] shadow-[0_10px_30px_rgba(159,177,193,0.12)]'>
+							<span className='flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#35d4c5] shadow-[0_8px_24px_rgba(53,212,197,0.18)]'>
+								<Globe2 className='h-5 w-5' />
+							</span>
+							<span className='font-medium tracking-[0.16em] uppercase'>Guest Archive</span>
 						</div>
 
-						<button
-							type='button'
-							onClick={() => setIsCreateOpen(open => !open)}
-							className='inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/80 px-5 py-3 text-sm font-medium text-[#243442] shadow-[0_10px_24px_rgba(160,178,193,0.14)] transition-colors hover:bg-white'>
-							<Plus className='h-4 w-4' />
-							Add Guest
-						</button>
+						<div className='space-y-4'>
+							<h1 className='max-w-2xl text-4xl font-semibold tracking-[-0.05em] text-[#1f2f3d] max-sm:text-3xl'>
+								Invited Guest Article and Research Share
+							</h1>
+							<p className='max-w-2xl text-sm leading-8 text-[#6e7e8b]'>
+								A cleaner guest page for collecting invited articles, research shares, and named reading lanes. Add a guest here, then route readers
+								straight into that guest category.
+							</p>
+						</div>
+
+						<div className='grid gap-3 sm:grid-cols-3'>
+							<div className='rounded-[28px] border border-white/75 bg-white/70 px-5 py-4'>
+								<div className='text-[11px] font-medium tracking-[0.18em] text-[#8ea0ad] uppercase'>Guest Cards</div>
+								<div className='mt-3 text-3xl font-semibold tracking-[-0.05em] text-[#22323f]'>{guestCards.length}</div>
+							</div>
+							<div className='rounded-[28px] border border-white/75 bg-white/70 px-5 py-4'>
+								<div className='text-[11px] font-medium tracking-[0.18em] text-[#8ea0ad] uppercase'>Categories</div>
+								<div className='mt-3 text-3xl font-semibold tracking-[-0.05em] text-[#22323f]'>{categories.length}</div>
+							</div>
+							<div className='rounded-[28px] border border-white/75 bg-white/70 px-5 py-4'>
+								<div className='text-[11px] font-medium tracking-[0.18em] text-[#8ea0ad] uppercase'>Mode</div>
+								<div className='mt-3 inline-flex items-center gap-2 text-sm font-medium text-[#22323f]'>
+									<Sparkles className='h-4 w-4 text-[#35d4c5]' />
+									Client managed
+								</div>
+							</div>
+						</div>
 					</div>
 
-					{isCreateOpen && (
-						<div className='grid gap-3 rounded-[28px] border border-white/70 bg-white/70 p-5 shadow-[0_14px_36px_rgba(160,178,193,0.14)] md:grid-cols-3'>
+					<div className='rounded-[32px] border border-white/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.88),rgba(255,255,255,0.62))] p-6 shadow-[0_22px_60px_rgba(163,183,196,0.16)]'>
+						<div className='flex h-full flex-col gap-5'>
+							<div className='inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#edf7f8] text-[#35bfab]'>
+								<UserRoundPlus className='h-5 w-5' />
+							</div>
+							<div className='space-y-2'>
+								<div className='text-[11px] font-medium tracking-[0.18em] text-[#8ea0ad] uppercase'>Guest Builder</div>
+								<h2 className='text-2xl font-semibold tracking-[-0.04em] text-[#22323f]'>Create a guest card without leaving the page.</h2>
+							</div>
+							<p className='text-sm leading-7 text-[#6e7e8b]'>
+								Keep the same compact card style, generate a `Guest · 人名` route, and use this page like a lightweight guest index instead of a crowded
+								misc page.
+							</p>
+							<div className='mt-auto'>
+								<button
+									type='button'
+									onClick={() => setIsCreateOpen(open => !open)}
+									className='inline-flex items-center gap-2 rounded-full bg-[#22323f] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#1a2732]'>
+									<Plus className='h-4 w-4' />
+									{isCreateOpen ? 'Close Form' : 'Add Guest'}
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			{isCreateOpen && (
+				<section className='card px-6 py-6 max-sm:px-4'>
+					<div className='space-y-4'>
+						<div>
+							<div className='text-[11px] font-medium tracking-[0.18em] text-[#8ea0ad] uppercase'>New Guest</div>
+							<h2 className='mt-2 text-2xl font-semibold tracking-[-0.04em] text-[#22323f]'>Add a compact guest card</h2>
+						</div>
+
+						<div className='grid gap-3 lg:grid-cols-[1fr_1fr_1.2fr]'>
 							<input
 								type='text'
 								value={draft.name}
@@ -117,48 +168,46 @@ export default function GridView() {
 								placeholder='Short description'
 								className='rounded-2xl border border-[#e6edf3] bg-white/90 px-4 py-3 text-sm text-[#243442] outline-none transition-colors focus:border-[#bed2de]'
 							/>
-							<div className='md:col-span-3 flex justify-end gap-3'>
-								<button
-									type='button'
-									onClick={() => {
-										setDraft({ name: '', avatar: '', description: '' })
-										setIsCreateOpen(false)
-									}}
-									className='rounded-full border border-white/80 bg-white/80 px-4 py-2 text-sm text-[#60717f] transition-colors hover:bg-white'>
-									Cancel
-								</button>
-								<button
-									type='button'
-									onClick={handleCreateGuest}
-									className='rounded-full bg-[#243442] px-4 py-2 text-sm text-white transition-colors hover:bg-[#1b2833]'>
-									Save Guest
-								</button>
-							</div>
 						</div>
-					)}
 
-					{!!guestCards.length && (
-						<div className='space-y-3'>
-							<div className='text-xs font-medium tracking-[0.18em] text-[#91a0ad] uppercase'>Categories</div>
-							<div className='flex flex-wrap gap-3'>
-								{guestCards.map(guest => {
-									const category = buildGuestCategory(guest.name)
-									return (
-										<Link
-											key={category}
-											href={`/blog?category=${encodeURIComponent(category)}`}
-											className='rounded-full border border-white/70 bg-white/75 px-4 py-2 text-sm text-[#50606d] transition-colors hover:border-[#d9e3eb] hover:text-[#1c2a38]'>
-											{category}
-										</Link>
-									)
-								})}
-							</div>
+						<div className='flex flex-wrap justify-end gap-3'>
+							<button
+								type='button'
+								onClick={() => {
+									setDraft({ name: '', avatar: '', description: '' })
+									setIsCreateOpen(false)
+								}}
+								className='rounded-full border border-white/80 bg-white/80 px-4 py-2 text-sm text-[#60717f] transition-colors hover:bg-white'>
+								Cancel
+							</button>
+							<button
+								type='button'
+								onClick={handleCreateGuest}
+								className='rounded-full bg-[#22323f] px-4 py-2 text-sm text-white transition-colors hover:bg-[#1a2732]'>
+								Save Guest
+							</button>
 						</div>
-					)}
-				</div>
-			</section>
+					</div>
+				</section>
+			)}
 
-			<section className='mx-auto w-full max-w-6xl'>
+			{!!guestCards.length && (
+				<section className='space-y-3'>
+					<div className='text-[11px] font-medium tracking-[0.18em] text-[#8ea0ad] uppercase'>Guest Categories</div>
+					<div className='flex flex-wrap gap-3'>
+						{categories.map(category => (
+							<Link
+								key={category}
+								href={`/blog?category=${encodeURIComponent(category)}`}
+								className='rounded-full border border-white/75 bg-white/80 px-4 py-2 text-sm text-[#50606d] transition-colors hover:border-[#d9e3eb] hover:text-[#1c2a38]'>
+								{category}
+							</Link>
+						))}
+					</div>
+				</section>
+			)}
+
+			<section>
 				{guestCards.length > 0 ? (
 					<div className='grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3'>
 						{guestCards.map((guest, index) => {
@@ -204,9 +253,15 @@ export default function GridView() {
 						})}
 					</div>
 				) : (
-					<div className='card mx-auto max-w-2xl px-8 py-12 text-center'>
-						<div className='text-lg font-medium text-[#243442]'>No guest cards yet</div>
-						<p className='mt-3 text-sm leading-7 text-[#6d7c89]'>点上面的 `Add Guest` 就可以新增一张小卡片，新增后会自动生成对应的 `Guest · 人名` 分类跳转。</p>
+					<div className='card mx-auto max-w-3xl px-8 py-12 text-center'>
+						<div className='mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#edf7f8] text-[#35bfab]'>
+							<Globe2 className='h-6 w-6' />
+						</div>
+						<div className='mt-5 text-2xl font-semibold tracking-[-0.04em] text-[#243442]'>No guest cards yet</div>
+						<p className='mx-auto mt-3 max-w-xl text-sm leading-7 text-[#6d7c89]'>
+							Start with `Add Guest` above. New cards will appear in a clean grid below, and each one will automatically point to its own `Guest · 人名`
+							category page.
+						</p>
 					</div>
 				)}
 			</section>
