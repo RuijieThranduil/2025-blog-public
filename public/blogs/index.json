@@ -1,5 +1,19 @@
 [
   {
+    "slug": "llm-knowledge-base",
+    "title": "LLM Knowledge Base 学习笔记",
+    "tags": [
+      "LLM",
+      "Knowledge Base",
+      "学习笔记"
+    ],
+    "date": "2026-04-19T02:55",
+    "summary": "从 Notion 迁移的 LLM Knowledge Base 学习笔记入口，包含核心概念与实践清单。",
+    "cover": "",
+    "hidden": false,
+    "category": "学习笔记"
+  },
+  {
     "slug": "sql-interview",
     "title": "Ace SQL Interview Problems",
     "tags": [
