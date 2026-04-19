@@ -72,7 +72,7 @@ export default function GridView() {
 
 	return (
 		<div className='mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 pt-32 pb-20 max-sm:px-4 max-sm:pt-28'>
-			<section className='card mr-auto w-full max-w-5xl overflow-hidden px-6 py-6 max-sm:px-4'>
+			<section className='surface-card mr-auto w-full max-w-5xl overflow-hidden px-6 py-6 max-sm:px-4'>
 				<div className='grid gap-8 lg:grid-cols-[1.35fr_0.85fr]'>
 					<div className='space-y-6'>
 						<div className='inline-flex w-fit items-center gap-3 rounded-full border border-white/80 bg-white/80 px-4 py-2 text-sm text-[#546674] shadow-[0_10px_30px_rgba(159,177,193,0.12)]'>
@@ -150,7 +150,7 @@ export default function GridView() {
 				</div>
 
 				{isCreateOpen && (
-					<section className='card px-6 py-6 max-sm:px-4'>
+					<section className='surface-card px-6 py-6 max-sm:px-4'>
 						<div className='space-y-4'>
 							<div>
 								<div className='text-[11px] font-medium tracking-[0.18em] text-[#8ea0ad] uppercase'>New Guest</div>
@@ -230,7 +230,7 @@ export default function GridView() {
 										whileInView={{ opacity: 1, y: 0 }}
 										transition={{ delay: index * 0.05 }}
 										viewport={{ once: true }}
-										className='card overflow-hidden p-0'>
+										className='surface-card overflow-hidden p-0'>
 										<div className='group flex h-full flex-col gap-5 p-6 transition-colors hover:bg-white/70'>
 											<div className='flex items-start justify-between gap-3'>
 												<Link href={`/blog?category=${encodeURIComponent(category)}`} className='flex min-w-0 flex-1 items-center gap-4'>
@@ -266,7 +266,7 @@ export default function GridView() {
 							})}
 						</div>
 					) : (
-						<div className='card max-w-4xl px-8 py-12 text-center'>
+						<div className='surface-card max-w-4xl px-8 py-12 text-center'>
 							<div className='mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#edf7f8] text-[#35bfab]'>
 								<Globe2 className='h-6 w-6' />
 							</div>
