@@ -127,26 +127,6 @@
     "category": "Large Language Model"
   },
   {
-    "slug": "Recommend System",
-    "title": "Recommend System",
-    "tags": [],
-    "date": "2026-04-19T02:36",
-    "summary": "",
-    "pdf": "/blogs/Recommend System/30657458b79f3785.pdf",
-    "hidden": false,
-    "category": "学习笔记"
-  },
-  {
-    "slug": "rs",
-    "title": "Recommendation System",
-    "tags": [],
-    "date": "2026-04-19T01:50",
-    "summary": "",
-    "cover": "/blogs/rs/0ce3fb60d5ae8367.webp",
-    "hidden": false,
-    "category": ""
-  },
-  {
     "slug": "sql-interview",
     "title": "Ace SQL Interview Problems",
     "tags": [
