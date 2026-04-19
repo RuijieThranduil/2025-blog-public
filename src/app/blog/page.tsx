@@ -7,7 +7,7 @@ import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { motion } from 'motion/react'
 
 dayjs.extend(weekOfYear)
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { toast } from 'sonner'
 import { INIT_DELAY } from '@/consts'
 import ShortLineSVG from '@/svgs/short-line.svg'
@@ -27,6 +27,14 @@ import { CategoryModal } from './components/category-modal'
 type DisplayMode = 'day' | 'week' | 'month' | 'year' | 'category'
 
 export default function BlogPage() {
+	return (
+		<Suspense fallback={<div className='text-secondary py-6 text-center text-sm'>加载中...</div>}>
+			<BlogPageContent />
+		</Suspense>
+	)
+}
+
+function BlogPageContent() {
 	const searchParams = useSearchParams()
 	const { items, loading } = useBlogIndex()
 	const { categories: categoriesFromServer } = useCategories()
@@ -367,7 +375,7 @@ export default function BlogPage() {
 					</div>
 				)}
 
-				{groupKeys.map((groupKey, index) => {
+				{groupKeys.map(groupKey => {
 					const group = groupedItems[groupKey]
 					if (!group) return null
 
