@@ -10,20 +10,11 @@
     "date": "2026-04-19T06:10",
     "summary": "测试 PDF 内嵌预览模式（iframe）。",
     "cover": "",
+    "pdf": "/blogs/llm-pdf-demo/llm-pdf-demo.pdf",
     "hidden": false,
-    "category": "Large Language Model",
-    "pdf": "/blogs/llm-pdf-demo/llm-pdf-demo.pdf"
+    "category": "Large Language Model"
   },
   {
-    "slug": "llm-knowledge-base",
-    "title": "LLM Knowledge Base · MOC 导图",
-    "tags": [
-      "LLM",
-      "MOC",
-      "知识库"
-    ],
-    "date": "2026-04-19T05:30",
-    "summary": "LLM 知识库总导航（MOC）：按模块跳转到独立博客卡片。",
     "slug": "llm-evaluation",
     "title": "LLM · Evaluation 评估",
     "tags": [
@@ -38,15 +29,6 @@
     "category": "Large Language Model"
   },
   {
-    "slug": "llm-foundations",
-    "title": "LLM · Foundations 基础理论",
-    "tags": [
-      "LLM",
-      "Foundations",
-      "Transformer"
-    ],
-    "date": "2026-04-19T05:31",
-    "summary": "语言模型、Embedding、Attention、Transformer 的卡片式知识点。",
     "slug": "llm-rag-agents",
     "title": "LLM · RAG & Agents",
     "tags": [
@@ -61,15 +43,6 @@
     "category": "Large Language Model"
   },
   {
-    "slug": "llm-pretraining",
-    "title": "LLM · Pretraining 预训练",
-    "tags": [
-      "LLM",
-      "Pretraining",
-      "Scaling Law"
-    ],
-    "date": "2026-04-19T05:32",
-    "summary": "数据清洗、预训练目标与 Scaling Law 的模块化知识点。",
     "slug": "llm-inference",
     "title": "LLM · Inference 推理与部署",
     "tags": [
@@ -112,15 +85,6 @@
     "category": "Large Language Model"
   },
   {
-    "slug": "llm-alignment",
-    "title": "LLM · Alignment 对齐",
-    "tags": [
-      "LLM",
-      "Alignment",
-      "RLHF"
-    ],
-    "date": "2026-04-19T05:34",
-    "summary": "RLHF、DPO、Constitutional AI 的模块化知识点。",
     "slug": "llm-pretraining",
     "title": "LLM · Pretraining 预训练",
     "tags": [
@@ -135,15 +99,6 @@
     "category": "Large Language Model"
   },
   {
-    "slug": "llm-inference",
-    "title": "LLM · Inference 推理与部署",
-    "tags": [
-      "LLM",
-      "Inference",
-      "Quantization"
-    ],
-    "date": "2026-04-19T05:35",
-    "summary": "KV Cache、量化和推理优化的工程化卡片。",
     "slug": "llm-foundations",
     "title": "LLM · Foundations 基础理论",
     "tags": [
@@ -158,15 +113,6 @@
     "category": "Large Language Model"
   },
   {
-    "slug": "llm-rag-agents",
-    "title": "LLM · RAG & Agents",
-    "tags": [
-      "LLM",
-      "RAG",
-      "Agent"
-    ],
-    "date": "2026-04-19T05:36",
-    "summary": "RAG、Tool Use、Agent 框架的卡片式整理。",
     "slug": "llm-knowledge-base",
     "title": "LLM Knowledge Base · MOC 导图",
     "tags": [
@@ -181,18 +127,6 @@
     "category": "Large Language Model"
   },
   {
-    "slug": "llm-evaluation",
-    "title": "LLM · Evaluation 评估",
-    "tags": [
-      "LLM",
-      "Evaluation",
-      "Benchmark"
-    ],
-    "date": "2026-04-19T05:37",
-    "summary": "评估方法与 benchmark 的复习型知识卡片。",
-    "cover": "",
-    "hidden": false,
-    "category": "Large Language Model"
     "slug": "Recommendation System",
     "title": "Recommendation_System",
     "tags": [],
@@ -200,6 +134,28 @@
     "summary": "",
     "cover": "/blogs/Recommendation System/0ce3fb60d5ae8367.webp",
     "pdf": "/blogs/Recommendation System/30657458b79f3785.pdf",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "teas",
+    "title": "teas",
+    "tags": [],
+    "date": "2026-04-19T01:29",
+    "summary": "",
+    "cover": "",
+    "pdf": "/blogs/teas/43ff68687a4748f1.png",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "test",
+    "title": "test",
+    "tags": [],
+    "date": "2026-04-19T01:28",
+    "summary": "",
+    "cover": "",
+    "pdf": "/blogs/test/43ff68687a4748f1.png",
     "hidden": false,
     "category": ""
   },
