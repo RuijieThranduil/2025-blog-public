@@ -1,0 +1,9 @@
+{
+  "title": "LLM · Foundations 基础理论",
+  "tags": ["LLM", "Foundations", "Transformer"],
+  "date": "2026-04-19T05:31",
+  "summary": "语言模型、Embedding、Attention、Transformer 的卡片式知识点。",
+  "cover": "",
+  "hidden": false,
+  "category": "Large Language Model"
+}

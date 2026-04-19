@@ -2,6 +2,7 @@ export type PublishForm = {
 	slug: string
 	title: string
 	md: string
+	pdf?: string
 	tags: string[]
 	date: string
 	summary: string

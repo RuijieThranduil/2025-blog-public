@@ -34,6 +34,8 @@ type WriteStore = {
 	// Cover state
 	cover: ImageItem | null
 	setCover: (cover: ImageItem | null) => void
+	pdfFile: File | null
+	setPdfFile: (file: File | null) => void
 
 	// Publish state
 	loading: boolean
@@ -50,6 +52,7 @@ const initialForm: PublishForm = {
 	slug: '',
 	title: '',
 	md: '',
+	pdf: '',
 	tags: [],
 	date: formatDateTimeLocal(),
 	summary: '',
@@ -149,6 +152,8 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 	// Cover state
 	cover: null,
 	setCover: cover => set({ cover }),
+	pdfFile: null,
+	setPdfFile: file => set({ pdfFile: file }),
 
 	// Publish state
 	loading: false,
@@ -191,6 +196,7 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 					slug,
 					title: blog.config.title || '',
 					md: blog.markdown,
+					pdf: blog.config.pdf || '',
 					tags: blog.config.tags || [],
 					date: blog.config.date ? formatDateTimeLocal(new Date(blog.config.date)) : formatDateTimeLocal(),
 					summary: blog.config.summary || '',
@@ -199,6 +205,7 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 				},
 				images,
 				cover,
+				pdfFile: null,
 				loading: false
 			})
 
@@ -229,7 +236,8 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 			originalSlug: null,
 			form: { ...initialForm, date: formatDateTimeLocal() },
 			images: [],
-			cover: null
+			cover: null,
+			pdfFile: null
 		})
 	}
 }))
