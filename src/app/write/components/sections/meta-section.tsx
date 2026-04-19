@@ -47,14 +47,18 @@ export function MetaSection({ delay = 0 }: MetaSectionProps) {
 				/>
 				<input
 					type='text'
-					placeholder='PDF URL（可选，留空表示无 PDF）'
+					placeholder={pdfFile ? '已导入本地 PDF，无需填写 URL' : 'PDF URL（可选，留空表示无 PDF）'}
 					className='bg-card w-full rounded-lg border px-3 py-2 text-sm'
 					value={form.pdf || ''}
+					disabled={!!pdfFile}
 					onChange={e => {
 						setPdfFile(null)
 						updateForm({ pdf: e.target.value })
 					}}
 				/>
+				<div className='text-secondary text-xs'>
+					导入本地 PDF 时这里不用填；发布后系统会自动写入 `/blogs/你的slug/xxx.pdf`。
+				</div>
 				{pdfFile && <div className='text-secondary text-xs'>已选择 PDF：{pdfFile.name}</div>}
 				{(pdfFile || form.pdf) && (
 					<button
