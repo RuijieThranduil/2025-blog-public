@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import dayjs from 'dayjs'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { motion } from 'motion/react'
@@ -26,6 +27,7 @@ import { CategoryModal } from './components/category-modal'
 type DisplayMode = 'day' | 'week' | 'month' | 'year' | 'category'
 
 export default function BlogPage() {
+	const searchParams = useSearchParams()
 	const { items, loading } = useBlogIndex()
 	const { categories: categoriesFromServer } = useCategories()
 	const { isRead } = useReadArticles()
@@ -56,7 +58,13 @@ export default function BlogPage() {
 		setCategoryList(categoriesFromServer || [])
 	}, [categoriesFromServer])
 
-	const displayItems = editMode ? editableItems : items
+	const requestedCategory = searchParams.get('category')?.trim() || ''
+	const activeDisplayMode: DisplayMode = requestedCategory ? 'category' : displayMode
+	const displayItems = useMemo(() => {
+		const sourceItems = editMode ? editableItems : items
+		if (!requestedCategory) return sourceItems
+		return sourceItems.filter(item => (item.category || '未分类') === requestedCategory)
+	}, [editMode, editableItems, items, requestedCategory])
 
 	const { groupedItems, groupKeys, getGroupLabel } = useMemo(() => {
 		const sorted = [...displayItems].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -67,7 +75,7 @@ export default function BlogPage() {
 				let label: string
 				const date = dayjs(item.date)
 
-				switch (displayMode) {
+				switch (activeDisplayMode) {
 					case 'category':
 						key = item.category || '未分类'
 						label = key
@@ -102,16 +110,14 @@ export default function BlogPage() {
 		)
 
 		const keys = Object.keys(grouped).sort((a, b) => {
-			if (displayMode === 'category') {
+			if (activeDisplayMode === 'category') {
 				const categoryOrder = new Map(categoryList.map((c, index) => [c, index]))
 				const aOrder = categoryOrder.has(a) ? categoryOrder.get(a)! : Number.MAX_SAFE_INTEGER
 				const bOrder = categoryOrder.has(b) ? categoryOrder.get(b)! : Number.MAX_SAFE_INTEGER
 				if (aOrder !== bOrder) return aOrder - bOrder
 				return a.localeCompare(b)
 			}
-			// 按时间倒序排序
-			if (displayMode === 'week') {
-				// 周格式：YYYY-WW
+			if (activeDisplayMode === 'week') {
 				const [yearA, weekA] = a.split('-W').map(Number)
 				const [yearB, weekB] = b.split('-W').map(Number)
 				if (yearA !== yearB) return yearB - yearA
@@ -125,7 +131,7 @@ export default function BlogPage() {
 			groupKeys: keys,
 			getGroupLabel: (key: string) => grouped[key]?.label || key
 		}
-	}, [displayItems, displayMode, categoryList])
+	}, [displayItems, activeDisplayMode, categoryList])
 
 	const selectedCount = selectedSlugs.size
 	const buttonText = isAuth ? '保存' : '导入密钥'
@@ -153,29 +159,24 @@ export default function BlogPage() {
 		})
 	}, [])
 
-	// 全选所有文章
 	const handleSelectAll = useCallback(() => {
 		setSelectedSlugs(new Set(editableItems.map(item => item.slug)))
 	}, [editableItems])
 
-	// 全选/取消全选某个时间维度分组
 	const handleSelectGroup = useCallback(
 		(groupKey: string) => {
 			const group = groupedItems[groupKey]
 			if (!group) return
 
-			// 检查该分组是否所有文章都已选中
 			const allSelected = group.items.every(item => selectedSlugs.has(item.slug))
 
 			setSelectedSlugs(prev => {
 				const next = new Set(prev)
 				if (allSelected) {
-					// 如果已全选，则取消该分组的选择
 					group.items.forEach(item => {
 						next.delete(item.slug)
 					})
 				} else {
-					// 如果未全选，则全选该分组
 					group.items.forEach(item => {
 						next.add(item.slug)
 					})
@@ -186,7 +187,6 @@ export default function BlogPage() {
 		[groupedItems, selectedSlugs]
 	)
 
-	// 取消全选
 	const handleDeselectAll = useCallback(() => {
 		setSelectedSlugs(new Set())
 	}, [])
@@ -347,12 +347,24 @@ export default function BlogPage() {
 								onClick={() => setDisplayMode(option.value as DisplayMode)}
 								className={cn(
 									'btn-rounded px-3 py-1.5 text-xs font-medium transition-all',
-									displayMode === option.value ? 'bg-brand text-white shadow-sm' : 'text-secondary hover:text-brand hover:bg-white/60'
+									activeDisplayMode === option.value ? 'bg-brand text-white shadow-sm' : 'text-secondary hover:text-brand hover:bg-white/60'
 								)}>
 								{option.label}
 							</motion.button>
 						))}
 					</motion.div>
+				)}
+
+				{requestedCategory && (
+					<div className='card flex w-full max-w-[840px] items-center justify-between gap-4 px-5 py-4 text-sm text-[#52626f] max-sm:flex-col max-sm:items-start'>
+						<div>
+							<div className='text-xs font-medium tracking-[0.18em] text-[#8fa0ad] uppercase'>Guest Category</div>
+							<div className='mt-1 text-base font-medium text-[#243442]'>{requestedCategory}</div>
+						</div>
+						<Link href='/blog' className='rounded-full border border-white/70 bg-white/70 px-4 py-2 text-sm transition-colors hover:bg-white'>
+							View All Articles
+						</Link>
+					</div>
 				)}
 
 				{groupKeys.map((groupKey, index) => {
@@ -409,7 +421,7 @@ export default function BlogPage() {
 													? cn(
 															'rounded-lg border px-3',
 															isSelected ? 'border-brand/60 bg-brand/5' : 'hover:border-brand/40 border-transparent hover:bg-white/60'
-														)
+													  )
 													: 'cursor-pointer'
 											)}>
 											{editMode && (
@@ -460,7 +472,7 @@ export default function BlogPage() {
 						</motion.div>
 					)
 				})}
-				{items.length > 0 && (
+				{items.length > 0 && !requestedCategory && (
 					<div className='text-center'>
 						<motion.a
 							initial={{ opacity: 0, scale: 0.6 }}
@@ -479,6 +491,9 @@ export default function BlogPage() {
 
 			<div className='pt-12'>
 				{!loading && items.length === 0 && <div className='text-secondary py-6 text-center text-sm'>暂无文章</div>}
+				{!loading && items.length > 0 && requestedCategory && displayItems.length === 0 && (
+					<div className='text-secondary py-6 text-center text-sm'>这个 guest 分类还没有文章，后续加上文章分类后这里会自动展示。</div>
+				)}
 				{loading && <div className='text-secondary py-6 text-center text-sm'>加载中...</div>}
 			</div>
 
