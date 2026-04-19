@@ -1,12 +1,14 @@
 {
-  "title": "LLM Knowledge Base 学习笔记",
+  "title": "LLM Knowledge Base（导入版）",
   "tags": [
     "LLM",
-    "Knowledge Base",
+    "Transformer",
+    "RAG",
+    "Alignment",
     "学习笔记"
   ],
-  "date": "2026-04-19T02:55",
-  "summary": "从 Notion 迁移的 LLM Knowledge Base 学习笔记入口，包含核心概念与实践清单。",
+  "date": "2026-04-19T04:05",
+  "summary": "已从 GitHub 仓库导入的 LLM 知识库笔记，覆盖 Foundations、Pretraining、Finetuning、Alignment、Inference、RAG、Evaluation 等模块。",
   "cover": "",
   "hidden": false,
   "category": "学习笔记"
