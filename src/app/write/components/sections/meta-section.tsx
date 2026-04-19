@@ -10,7 +10,7 @@ type MetaSectionProps = {
 }
 
 export function MetaSection({ delay = 0 }: MetaSectionProps) {
-	const { form, updateForm } = useWriteStore()
+	const { form, updateForm, pdfFile, setPdfFile } = useWriteStore()
 	console.log(form.date)
 
 	const { categories } = useCategories()
@@ -45,6 +45,28 @@ export function MetaSection({ delay = 0 }: MetaSectionProps) {
 						updateForm({ date: e.target.value })
 					}}
 				/>
+				<input
+					type='text'
+					placeholder='PDF URL（可选，留空表示无 PDF）'
+					className='bg-card w-full rounded-lg border px-3 py-2 text-sm'
+					value={form.pdf || ''}
+					onChange={e => {
+						setPdfFile(null)
+						updateForm({ pdf: e.target.value })
+					}}
+				/>
+				{pdfFile && <div className='text-secondary text-xs'>已选择 PDF：{pdfFile.name}</div>}
+				{(pdfFile || form.pdf) && (
+					<button
+						type='button'
+						className='text-secondary rounded-lg border px-3 py-1 text-xs hover:bg-white/50'
+						onClick={() => {
+							setPdfFile(null)
+							updateForm({ pdf: '' })
+						}}>
+						清除 PDF
+					</button>
+				)}
 
 				<div className='flex items-center gap-2'>
 					<input

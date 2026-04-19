@@ -7,12 +7,13 @@ import { usePreviewStore } from '../stores/preview-store'
 import { usePublish } from '../hooks/use-publish'
 
 export function WriteActions() {
-	const { loading, mode, form, loadBlogForEdit, originalSlug, updateForm } = useWriteStore()
+	const { loading, mode, form, loadBlogForEdit, originalSlug, updateForm, setPdfFile } = useWriteStore()
 	const { openPreview } = usePreviewStore()
 	const { isAuth, onChoosePrivateKey, onPublish, onDelete } = usePublish()
 	const [saving, setSaving] = useState(false)
 	const keyInputRef = useRef<HTMLInputElement>(null)
 	const mdInputRef = useRef<HTMLInputElement>(null)
+	const pdfInputRef = useRef<HTMLInputElement>(null)
 	const router = useRouter()
 
 	const handleImportOrPublish = () => {
@@ -51,6 +52,10 @@ export function WriteActions() {
 		mdInputRef.current?.click()
 	}
 
+	const handleImportPdf = () => {
+		pdfInputRef.current?.click()
+	}
+
 	const handleMdFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0]
 		if (!file) return
@@ -59,6 +64,21 @@ export function WriteActions() {
 			const text = await file.text()
 			updateForm({ md: text })
 			toast.success('已导入 Markdown 文件')
+		} catch (error) {
+			toast.error('导入失败，请重试')
+		} finally {
+			if (e.currentTarget) e.currentTarget.value = ''
+		}
+	}
+
+	const handlePdfFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0]
+		if (!file) return
+
+		try {
+			setPdfFile(file)
+			updateForm({ pdf: '' })
+			toast.success('已导入 PDF 文件')
 		} catch (error) {
 			toast.error('导入失败，请重试')
 		} finally {
@@ -80,6 +100,7 @@ export function WriteActions() {
 				}}
 			/>
 			<input ref={mdInputRef} type='file' accept='.md' className='hidden' onChange={handleMdFileChange} />
+			<input ref={pdfInputRef} type='file' accept='.pdf,application/pdf' className='hidden' onChange={handlePdfFileChange} />
 
 			<ul className='absolute top-4 right-6 flex items-center gap-2'>
 				{mode === 'edit' && (
@@ -119,6 +140,16 @@ export function WriteActions() {
 					disabled={loading}
 					onClick={handleImportMd}>
 					导入 MD
+				</motion.button>
+				<motion.button
+					initial={{ opacity: 0, scale: 0.6 }}
+					animate={{ opacity: 1, scale: 1 }}
+					whileHover={{ scale: 1.05 }}
+					whileTap={{ scale: 0.95 }}
+					className='bg-card rounded-xl border px-4 py-2 text-sm'
+					disabled={loading}
+					onClick={handleImportPdf}>
+					导入 PDF
 				</motion.button>
 				<motion.button
 					initial={{ opacity: 0, scale: 0.6 }}
