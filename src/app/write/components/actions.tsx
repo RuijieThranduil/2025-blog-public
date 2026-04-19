@@ -77,7 +77,7 @@ export function WriteActions() {
 
 		try {
 			setPdfFile(file)
-			updateForm({ pdf: URL.createObjectURL(file) })
+			updateForm({ pdf: '' })
 			toast.success('已导入 PDF 文件')
 		} catch (error) {
 			toast.error('导入失败，请重试')

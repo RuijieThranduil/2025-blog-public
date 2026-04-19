@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import { useWriteStore } from '../stores/write-store'
 
 export function useWriteData() {
-	const { form, images } = useWriteStore()
+	const { form, images, pdfPreviewUrl } = useWriteStore()
 
 	// Replace local-image placeholders with preview URLs
 	const processedMarkdown = useMemo(() => {
@@ -24,6 +24,6 @@ export function useWriteData() {
 		markdown: processedMarkdown,
 		title,
 		date,
-		pdfUrl: form.pdf
+		pdfUrl: pdfPreviewUrl || form.pdf
 	}
 }

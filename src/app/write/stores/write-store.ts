@@ -35,6 +35,7 @@ type WriteStore = {
 	cover: ImageItem | null
 	setCover: (cover: ImageItem | null) => void
 	pdfFile: File | null
+	pdfPreviewUrl: string
 	setPdfFile: (file: File | null) => void
 
 	// Publish state
@@ -153,7 +154,18 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 	cover: null,
 	setCover: cover => set({ cover }),
 	pdfFile: null,
-	setPdfFile: file => set({ pdfFile: file }),
+	pdfPreviewUrl: '',
+	setPdfFile: file => {
+		const { pdfPreviewUrl } = get()
+		if (pdfPreviewUrl) {
+			URL.revokeObjectURL(pdfPreviewUrl)
+		}
+		if (!file) {
+			set({ pdfFile: null, pdfPreviewUrl: '' })
+			return
+		}
+		set({ pdfFile: file, pdfPreviewUrl: URL.createObjectURL(file) })
+	},
 
 	// Publish state
 	loading: false,
@@ -206,6 +218,7 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 				images,
 				cover,
 				pdfFile: null,
+				pdfPreviewUrl: '',
 				loading: false
 			})
 
@@ -221,7 +234,7 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 	// Reset to create mode
 	reset: () => {
 		// Revoke object URLs
-		const { images, cover } = get()
+		const { images, cover, pdfPreviewUrl } = get()
 		for (const img of images) {
 			if (img.type === 'file') {
 				URL.revokeObjectURL(img.previewUrl)
@@ -230,6 +243,9 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 		if (cover?.type === 'file') {
 			URL.revokeObjectURL(cover.previewUrl)
 		}
+		if (pdfPreviewUrl) {
+			URL.revokeObjectURL(pdfPreviewUrl)
+		}
 
 		set({
 			mode: 'create',
@@ -237,7 +253,8 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 			form: { ...initialForm, date: formatDateTimeLocal() },
 			images: [],
 			cover: null,
-			pdfFile: null
+			pdfFile: null,
+			pdfPreviewUrl: ''
 		})
 	}
 }))
