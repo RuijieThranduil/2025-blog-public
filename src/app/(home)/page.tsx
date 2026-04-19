@@ -3,12 +3,22 @@
 import Link from 'next/link'
 import dayjs from 'dayjs'
 import { motion } from 'motion/react'
-import { ArrowUpRight, Mail, Settings2 } from 'lucide-react'
-import { useEffect, useMemo } from 'react'
+import { ArrowUpRight, Mail, Pause, Settings2 } from 'lucide-react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useBlogIndex, type BlogIndexItem } from '@/hooks/use-blog-index'
 import { useConfigStore } from './stores/config-store'
 import ConfigDialog from './config-dialog'
 import SnowfallBackground from '@/layout/backgrounds/snowfall'
+import ScrollFilledSVG from '@/svgs/scroll-filled.svg'
+import ProjectsOutlineSVG from '@/svgs/projects-outline.svg'
+import AboutOutlineSVG from '@/svgs/about-outline.svg'
+import ShareOutlineSVG from '@/svgs/share-outline.svg'
+import WebsiteOutlineSVG from '@/svgs/website-outline.svg'
+import PenSVG from '@/svgs/pen.svg'
+import DotsSVG from '@/svgs/dots.svg'
+import MusicSVG from '@/svgs/music.svg'
+import PlaySVG from '@/svgs/play.svg'
+import LikeButton from '@/components/like-button'
 
 type SocialButton = {
 	id: string
@@ -17,6 +27,16 @@ type SocialButton = {
 	label?: string
 	order: number
 }
+
+const HOME_NAV_ITEMS = [
+	{ href: '/blog', icon: ScrollFilledSVG, label: '近期文章' },
+	{ href: '/projects', icon: ProjectsOutlineSVG, label: '我的项目' },
+	{ href: '/about', icon: AboutOutlineSVG, label: '关于网站' },
+	{ href: '/share', icon: ShareOutlineSVG, label: '推荐分享' },
+	{ href: '/bloggers', icon: WebsiteOutlineSVG, label: '优秀博客' }
+] as const
+
+const MUSIC_FILES = ['/music/close-to-you.mp3']
 
 function getGreeting() {
 	const hour = new Date().getHours()
@@ -51,6 +71,138 @@ function StatCard({ label, value, hint }: { label: string; value: string; hint: 
 			<p className='text-[11px] uppercase tracking-[0.22em] text-black/40'>{label}</p>
 			<p className='mt-3 text-2xl font-semibold tracking-[-0.04em] text-black/80'>{value}</p>
 			<p className='mt-2 text-sm leading-6 text-black/50'>{hint}</p>
+		</div>
+	)
+}
+
+function HomeNavRail() {
+	return (
+		<div className='inline-flex items-center gap-3 rounded-[30px] border border-white/75 bg-white/62 px-4 py-4 shadow-[0_30px_90px_-68px_rgba(15,23,42,0.45)] backdrop-blur-2xl'>
+			<Link
+				href='/'
+				aria-label='Home'
+				className='flex h-16 w-16 items-center justify-center rounded-full border border-black/6 bg-white/74 shadow-[0_16px_36px_-18px_rgba(15,23,42,0.25)] transition-transform hover:-translate-y-0.5'>
+				<img src='/images/avatar.png' alt='avatar' className='h-14 w-14 rounded-full object-cover' />
+			</Link>
+
+			<div className='flex items-center gap-2 sm:gap-3'>
+				{HOME_NAV_ITEMS.map(item => {
+					const Icon = item.icon
+					return (
+						<Link
+							key={item.href}
+							href={item.href}
+							aria-label={item.label}
+							className='flex h-16 w-16 items-center justify-center rounded-full border border-transparent text-black/42 transition-all hover:border-black/6 hover:bg-white/72 hover:text-black/72'>
+							<Icon className='h-8 w-8' />
+						</Link>
+					)
+				})}
+			</div>
+		</div>
+	)
+}
+
+function WriteEntry({ onCustomize, showCustomize }: { onCustomize: () => void; showCustomize: boolean }) {
+	return (
+		<div className='flex items-center gap-3'>
+			<Link
+				href='/write'
+				className='inline-flex items-center gap-3 rounded-[24px] border border-white/80 bg-[#43c8ea] px-5 py-4 text-lg font-semibold text-white shadow-[inset_0_0_0_2px_rgba(255,255,255,0.7),0_24px_70px_-48px_rgba(38,166,194,0.8)] transition-transform hover:-translate-y-0.5'>
+				<PenSVG className='h-7 w-7' />
+				<span>写文章</span>
+			</Link>
+
+			{showCustomize && (
+				<button
+					type='button'
+					onClick={onCustomize}
+					aria-label='Customize home'
+					className='flex h-14 w-14 items-center justify-center rounded-[20px] border border-white/70 bg-white/55 text-black/45 shadow-[0_20px_50px_-38px_rgba(15,23,42,0.35)] backdrop-blur-xl transition-colors hover:bg-white/78 hover:text-black/72'>
+					<DotsSVG className='h-6 w-6' />
+				</button>
+			)}
+		</div>
+	)
+}
+
+function HomeMusicCard() {
+	const [isPlaying, setIsPlaying] = useState(false)
+	const [progress, setProgress] = useState(0)
+	const [currentIndex, setCurrentIndex] = useState(0)
+	const audioRef = useRef<HTMLAudioElement | null>(null)
+
+	useEffect(() => {
+		if (!audioRef.current) {
+			audioRef.current = new Audio()
+		}
+
+		const audio = audioRef.current
+
+		const updateProgress = () => {
+			if (audio.duration) {
+				setProgress((audio.currentTime / audio.duration) * 100)
+			}
+		}
+
+		const handleEnded = () => {
+			const nextIndex = (currentIndex + 1) % MUSIC_FILES.length
+			setCurrentIndex(nextIndex)
+			setProgress(0)
+		}
+
+		audio.addEventListener('timeupdate', updateProgress)
+		audio.addEventListener('loadedmetadata', updateProgress)
+		audio.addEventListener('ended', handleEnded)
+
+		return () => {
+			audio.removeEventListener('timeupdate', updateProgress)
+			audio.removeEventListener('loadedmetadata', updateProgress)
+			audio.removeEventListener('ended', handleEnded)
+			audio.pause()
+			audio.src = ''
+		}
+	}, [currentIndex])
+
+	useEffect(() => {
+		if (!audioRef.current) return
+
+		const audio = audioRef.current
+		audio.pause()
+		audio.src = MUSIC_FILES[currentIndex]
+		audio.loop = false
+		setProgress(0)
+	}, [currentIndex])
+
+	useEffect(() => {
+		if (!audioRef.current) return
+
+		const audio = audioRef.current
+		if (isPlaying) {
+			audio.play().catch(() => undefined)
+			return
+		}
+
+		audio.pause()
+	}, [isPlaying])
+
+	return (
+		<div className='flex items-center gap-4 rounded-[32px] border border-white/78 bg-white/62 px-6 py-5 shadow-[0_30px_90px_-68px_rgba(15,23,42,0.45)] backdrop-blur-2xl'>
+			<MusicSVG className='h-9 w-9 shrink-0' />
+
+			<div className='min-w-0 flex-1'>
+				<p className='text-2xl tracking-[-0.04em] text-[#8d766c]'>Close To You</p>
+				<div className='mt-3 h-3 rounded-full bg-white/70'>
+					<div className='bg-linear h-full rounded-full transition-all duration-300' style={{ width: `${progress}%` }} />
+				</div>
+			</div>
+
+			<button
+				type='button'
+				onClick={() => setIsPlaying(value => !value)}
+				className='flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white text-brand shadow-[0_18px_40px_-28px_rgba(15,23,42,0.35)] transition-transform hover:-translate-y-0.5'>
+				{isPlaying ? <Pause className='h-5 w-5' /> : <PlaySVG className='ml-1 h-5 w-5' />}
+			</button>
 		</div>
 	)
 }
@@ -166,6 +318,15 @@ export default function Home() {
 			{siteContent.enableChristmas && <SnowfallBackground zIndex={0} count={24} />}
 
 			<div className='mx-auto flex w-full max-w-7xl flex-col px-5 pt-28 pb-20 sm:px-8 lg:px-10'>
+				<motion.section
+					initial={{ opacity: 0, y: 14 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.35, ease: 'easeOut' }}
+					className='mb-6 flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between'>
+					<HomeNavRail />
+					<WriteEntry onCustomize={() => setConfigDialogOpen(true)} showCustomize={!siteContent.hideEditButton} />
+				</motion.section>
+
 				<motion.section
 					initial={{ opacity: 0, y: 18 }}
 					animate={{ opacity: 1, y: 0 }}
@@ -314,6 +475,16 @@ export default function Home() {
 								</div>
 							</div>
 						</div>
+					</div>
+				</section>
+
+				<section className='mt-8 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center'>
+					<HomeMusicCard />
+					<div className='flex justify-start lg:justify-end'>
+						<LikeButton
+							className='rounded-[30px] border border-white/78 bg-white/62 px-6 py-5 shadow-[0_30px_90px_-68px_rgba(15,23,42,0.45)] backdrop-blur-2xl'
+							delay={0}
+						/>
 					</div>
 				</section>
 			</div>
