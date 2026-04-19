@@ -9,12 +9,15 @@ import { useSize, useSizeInit } from '@/hooks/use-size'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
 import { ScrollTopButton } from '@/components/scroll-top-button'
 import MusicCard from '@/components/music-card'
+import { usePathname } from 'next/navigation'
 
 export default function Layout({ children }: PropsWithChildren) {
 	useCenterInit()
 	useSizeInit()
+	const pathname = usePathname()
 	const { cardStyles, siteContent, regenerateKey } = useConfigStore()
 	const { maxSM, init } = useSize()
+	const isHomePage = pathname === '/'
 
 	const backgroundImages = (siteContent.backgroundImages ?? []) as Array<{ id: string; url: string }>
 	const currentBackgroundImageId = siteContent.currentBackgroundImageId
@@ -54,9 +57,9 @@ export default function Layout({ children }: PropsWithChildren) {
 
 			<main className='relative z-10 h-full'>
 				{children}
-				<NavCard />
+				{!isHomePage && <NavCard />}
 
-				{!maxSM && cardStyles.musicCard?.enabled !== false && <MusicCard />}
+				{!isHomePage && !maxSM && cardStyles.musicCard?.enabled !== false && <MusicCard />}
 			</main>
 
 			{maxSM && init && <ScrollTopButton className='bg-brand/20 fixed right-6 bottom-8 z-50 shadow-md' />}
