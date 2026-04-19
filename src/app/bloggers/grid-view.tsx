@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'motion/react'
 import { ArrowUpRight, Globe2, Plus, Sparkles, Trash2, UserRoundPlus } from 'lucide-react'
+import { toast } from 'sonner'
+import { syncGuestCategory } from './services/sync-guest-category'
 
 interface GuestCard {
 	name: string
@@ -64,10 +66,11 @@ export default function GridView() {
 
 	const categories = useMemo(() => guestCards.map(guest => buildGuestCategory(guest.name)), [guestCards])
 
-	const handleCreateGuest = () => {
+	const handleCreateGuest = async () => {
 		const name = draft.name.trim()
 		const description = draft.description.trim()
 		if (!name) return
+		const category = buildGuestCategory(name)
 
 		setGuestCards(prev => [
 			...prev,
@@ -79,6 +82,13 @@ export default function GridView() {
 		])
 		setDraft({ name: '', avatar: '', description: '' })
 		setIsCreateOpen(false)
+
+		try {
+			await syncGuestCategory(category)
+		} catch (error) {
+			console.error('Failed to sync guest category', error)
+			toast.error(`Guest 已创建，但分类 ${category} 还没有同步到仓库`)
+		}
 	}
 
 	const handleDeleteGuest = (name: string) => {
