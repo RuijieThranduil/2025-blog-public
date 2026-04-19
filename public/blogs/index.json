@@ -1,5 +1,21 @@
 [
   {
+    "slug": "llm-knowledge-base",
+    "title": "LLM Knowledge Base（导入版）",
+    "tags": [
+      "LLM",
+      "Transformer",
+      "RAG",
+      "Alignment",
+      "学习笔记"
+    ],
+    "date": "2026-04-19T04:05",
+    "summary": "已从 GitHub 仓库导入的 LLM 知识库笔记，覆盖 Foundations、Pretraining、Finetuning、Alignment、Inference、RAG、Evaluation 等模块。",
+    "cover": "",
+    "hidden": false,
+    "category": "学习笔记"
+  },
+  {
     "slug": "sql-interview",
     "title": "Ace SQL Interview Problems",
     "tags": [
