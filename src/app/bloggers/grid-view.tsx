@@ -21,6 +21,21 @@ function createFallbackAvatar(name: string) {
 	return `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=ecf5f8&color=243442&bold=true`
 }
 
+function readFileAsDataUrl(file: File) {
+	return new Promise<string>((resolve, reject) => {
+		const reader = new FileReader()
+		reader.onload = () => {
+			if (typeof reader.result === 'string') {
+				resolve(reader.result)
+				return
+			}
+			reject(new Error('Failed to read image file'))
+		}
+		reader.onerror = () => reject(reader.error ?? new Error('Failed to read image file'))
+		reader.readAsDataURL(file)
+	})
+}
+
 export default function GridView() {
 	const [guestCards, setGuestCards] = useState<GuestCard[]>([])
 	const [isCreateOpen, setIsCreateOpen] = useState(false)
@@ -68,6 +83,16 @@ export default function GridView() {
 
 	const handleDeleteGuest = (name: string) => {
 		setGuestCards(prev => prev.filter(card => card.name !== name))
+	}
+
+	const handleAvatarUpload = async (file?: File) => {
+		if (!file) return
+		try {
+			const avatar = await readFileAsDataUrl(file)
+			setDraft(prev => ({ ...prev, avatar }))
+		} catch (error) {
+			console.error('Failed to read guest avatar', error)
+		}
 	}
 
 	return (
@@ -157,28 +182,65 @@ export default function GridView() {
 								<h2 className='mt-2 text-2xl font-semibold tracking-[-0.04em] text-[#22323f]'>Add a compact guest card</h2>
 							</div>
 
-							<div className='grid gap-3 lg:grid-cols-[1fr_1fr_1.2fr]'>
-								<input
-									type='text'
-									value={draft.name}
-									onChange={event => setDraft(prev => ({ ...prev, name: event.target.value }))}
-									placeholder='Guest name'
-									className='rounded-2xl border border-[#e6edf3] bg-white/90 px-4 py-3 text-sm text-[#243442] outline-none transition-colors focus:border-[#bed2de]'
-								/>
-								<input
-									type='text'
-									value={draft.avatar}
-									onChange={event => setDraft(prev => ({ ...prev, avatar: event.target.value }))}
-									placeholder='Avatar URL (optional)'
-									className='rounded-2xl border border-[#e6edf3] bg-white/90 px-4 py-3 text-sm text-[#243442] outline-none transition-colors focus:border-[#bed2de]'
-								/>
-								<input
-									type='text'
-									value={draft.description}
-									onChange={event => setDraft(prev => ({ ...prev, description: event.target.value }))}
-									placeholder='Short description'
-									className='rounded-2xl border border-[#e6edf3] bg-white/90 px-4 py-3 text-sm text-[#243442] outline-none transition-colors focus:border-[#bed2de]'
-								/>
+							<div className='grid gap-4 lg:grid-cols-[220px_1fr]'>
+								<div className='space-y-3'>
+									<div className='overflow-hidden rounded-[28px] border border-white/80 bg-white/80 p-3 shadow-[0_12px_30px_rgba(163,183,196,0.12)]'>
+										<div className='flex aspect-square items-center justify-center overflow-hidden rounded-[22px] bg-[#eef6f7]'>
+											{draft.avatar ? (
+												<img src={draft.avatar} alt='Guest avatar preview' className='h-full w-full object-cover' />
+											) : (
+												<div className='flex flex-col items-center gap-2 px-4 text-center text-sm text-[#7a8a97]'>
+													<UserRoundPlus className='h-8 w-8 text-[#35bfab]' />
+													<span>Upload guest photo</span>
+												</div>
+											)}
+										</div>
+									</div>
+									<label className='flex cursor-pointer items-center justify-center rounded-full border border-[#d8e4ea] bg-white/90 px-4 py-3 text-sm font-medium text-[#243442] transition-colors hover:bg-white'>
+										<input
+											type='file'
+											accept='image/*'
+											className='hidden'
+											onChange={async event => {
+												await handleAvatarUpload(event.target.files?.[0])
+												event.target.value = ''
+											}}
+										/>
+										{draft.avatar ? 'Replace Photo' : 'Upload Photo'}
+									</label>
+									{draft.avatar && (
+										<button
+											type='button'
+											onClick={() => setDraft(prev => ({ ...prev, avatar: '' }))}
+											className='w-full rounded-full border border-white/80 bg-white/80 px-4 py-2 text-sm text-[#60717f] transition-colors hover:bg-white'>
+											Remove Photo
+										</button>
+									)}
+								</div>
+
+								<div className='grid gap-3'>
+									<input
+										type='text'
+										value={draft.name}
+										onChange={event => setDraft(prev => ({ ...prev, name: event.target.value }))}
+										placeholder='Guest name'
+										className='rounded-2xl border border-[#e6edf3] bg-white/90 px-4 py-3 text-sm text-[#243442] outline-none transition-colors focus:border-[#bed2de]'
+									/>
+									<input
+										type='text'
+										value={draft.avatar.startsWith('data:image/') ? '' : draft.avatar}
+										onChange={event => setDraft(prev => ({ ...prev, avatar: event.target.value }))}
+										placeholder='Avatar URL (optional)'
+										className='rounded-2xl border border-[#e6edf3] bg-white/90 px-4 py-3 text-sm text-[#243442] outline-none transition-colors focus:border-[#bed2de]'
+									/>
+									<input
+										type='text'
+										value={draft.description}
+										onChange={event => setDraft(prev => ({ ...prev, description: event.target.value }))}
+										placeholder='Short description'
+										className='rounded-2xl border border-[#e6edf3] bg-white/90 px-4 py-3 text-sm text-[#243442] outline-none transition-colors focus:border-[#bed2de]'
+									/>
+								</div>
 							</div>
 
 							<div className='flex flex-wrap justify-end gap-3'>
