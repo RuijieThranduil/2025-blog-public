@@ -1,0 +1,15 @@
+{
+  "title": "LLM Knowledge Base · MOC 导图式笔记",
+  "tags": [
+    "LLM",
+    "MOC",
+    "知识库",
+    "RAG",
+    "学习笔记"
+  ],
+  "date": "2026-04-19T05:00",
+  "summary": "按 MOC 导图重构的 LLM 知识库：模块化、卡片化、可复习、可跳转、可扩展。",
+  "cover": "",
+  "hidden": false,
+  "category": "学习笔记"
+}
