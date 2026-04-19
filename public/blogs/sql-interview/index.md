@@ -1,17 +1,6 @@
 ## Introduction
 
 ### Course Intro & How to Prep for the SQL Interview
-
-- 课程结构
-    - SQL 考点总结（视频讲解 + 笔记）
-    - SQL 面试技巧分享（视频讲解 + 笔记）
-    - SQL 面试真题（笔记）
-        - Concept questions
-        - Query analysis questions
-        - Live coding questions
-- 注意事项
-    - 本课程适用于熟悉基本 SQL 语法的同学，如果没有基础的同学推荐可以先上 Udemy 的 Master SQL for Data Science
-    - 全套课程笔记：[https://armandbirt.notion.site/Ace-SQL-Interview-Problems-8be3af9bdcae44d98225d9b96d686e41](https://www.notion.so/Ace-SQL-Interview-Problems-973d2342204e829aa33201453d8d4c21?pvs=21)
     - SQL 本身考点比较有限，不像数据结构与算法需要大量刷题找到感觉，写出好的 SQL query 更需要对于 SQL 本身知识点的扎实理解。建议在掌握基本 SQL 语法后准备面试的学习路径是首先复习并且掌握考点，然后再配合少量刷题。本套笔记将 SQL 考点整理为以下几个方面：
         - Database & SQL Query Basics
         - Using Functions
