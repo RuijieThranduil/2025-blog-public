@@ -47,6 +47,12 @@ export default function Page() {
 	const title = useMemo(() => (blog?.config.title ? blog.config.title : slug), [blog?.config.title, slug])
 	const date = useMemo(() => dayjs(blog?.config.date).format('YYYY年 M月 D日'), [blog?.config.date])
 	const tags = blog?.config.tags || []
+	const resolveAssetUrl = (url?: string) => {
+		if (!url) return undefined
+		return url
+	}
+	const pdfUrl = blog?.config.pdf && /\.pdf([?#].*)?$/i.test(blog.config.pdf) ? resolveAssetUrl(blog.config.pdf) : undefined
+
 
 	const handleEdit = () => {
 		router.push(`/write/${slug}`)
@@ -76,8 +82,9 @@ export default function Page() {
 				tags={tags}
 				date={date}
 				summary={blog.config.summary}
-				cover={blog.cover ? (blog.cover.startsWith('http') ? blog.cover : `${origin}${blog.cover}`) : undefined}
+				cover={resolveAssetUrl(blog.cover)}
 				slug={slug}
+				pdfUrl={pdfUrl}
 			/>
 
 			<motion.button

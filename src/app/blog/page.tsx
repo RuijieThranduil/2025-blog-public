@@ -433,9 +433,20 @@ export default function BlogPage() {
 													editMode ? null : 'group-hover:text-brand group-hover:translate-x-2'
 												)}>
 												{it.title || it.slug}
+												{it.pdf && <span className='ml-2 rounded bg-blue-100 px-1.5 py-0.5 text-[10px] font-medium text-blue-700'>PDF</span>}
 												{hasRead && <span className='text-secondary ml-2 text-xs'>[已阅读]</span>}
 											</div>
 											<div className='flex flex-wrap items-center gap-2 max-sm:hidden'>
+												{it.pdf && (
+													<a
+														href={it.pdf}
+														target='_blank'
+														rel='noreferrer'
+														onClick={event => event.stopPropagation()}
+														className='text-secondary hover:text-brand text-xs underline'>
+														打开PDF
+													</a>
+												)}
 												{(it.tags || []).map(t => (
 													<span key={t} className='text-secondary text-sm'>
 														#{t}

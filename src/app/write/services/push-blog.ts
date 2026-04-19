@@ -13,6 +13,7 @@ export type PushBlogParams = {
 		slug: string
 		title: string
 		md: string
+		pdf?: string
 		tags: string[]
 		date?: string
 		summary?: string
@@ -21,12 +22,13 @@ export type PushBlogParams = {
 	}
 	cover?: ImageItem | null
 	images?: ImageItem[]
+	pdfFile?: File | null
 	mode?: 'create' | 'edit'
 	originalSlug?: string | null
 }
 
 export async function pushBlog(params: PushBlogParams): Promise<void> {
-	const { form, cover, images, mode = 'create', originalSlug } = params
+	const { form, cover, images, pdfFile, mode = 'create', originalSlug } = params
 
 	if (!form?.slug) throw new Error('需要 slug')
 
@@ -64,6 +66,8 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 	const uploadedHashes = new Set<string>()
 	let mdToUpload = form.md
 	let coverPath: string | undefined
+	const looksLikePdf = (value?: string) => !!value && /\.pdf([?#].*)?$/i.test(value)
+	let pdfPath: string | undefined = looksLikePdf(form.pdf) ? form.pdf : undefined
 
 	// prepare tree items for all files
 	const treeItems: TreeItem[] = []
@@ -107,6 +111,24 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 		coverPath = cover.url
 	}
 
+	// handle pdf upload
+	if (pdfFile) {
+		const pdfHash = await hashFileSHA256(pdfFile)
+		const pdfExt = '.pdf'
+		const pdfFilename = `${pdfHash}${pdfExt}`
+		const pdfRepoPath = `${basePath}/${pdfFilename}`
+		const pdfPublicPath = `/blogs/${form.slug}/${pdfFilename}`
+		const pdfBase64 = await fileToBase64NoPrefix(pdfFile)
+		const pdfBlob = await createBlob(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, pdfBase64, 'base64')
+		treeItems.push({
+			path: pdfRepoPath,
+			mode: '100644',
+			type: 'blob',
+			sha: pdfBlob.sha
+		})
+		pdfPath = pdfPublicPath
+	}
+
 	toast.info('正在创建文件...')
 
 	// create blob for index.md
@@ -126,6 +148,7 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 		date: dateStr,
 		summary: form.summary,
 		cover: coverPath,
+		pdf: pdfPath,
 		hidden: form.hidden,
 		category: form.category
 	}
@@ -150,6 +173,7 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 			date: dateStr,
 			summary: form.summary,
 			cover: coverPath,
+			pdf: pdfPath,
 			hidden: form.hidden,
 			category: form.category
 		},

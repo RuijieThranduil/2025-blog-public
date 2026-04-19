@@ -10,7 +10,8 @@ type MetaSectionProps = {
 }
 
 export function MetaSection({ delay = 0 }: MetaSectionProps) {
-	const { form, updateForm } = useWriteStore()
+	const { form, updateForm, pdfFile, setPdfFile } = useWriteStore()
+	const invalidPdfUrl = !!form.pdf && !/\.pdf([?#].*)?$/i.test(form.pdf)
 	console.log(form.date)
 
 	const { categories } = useCategories()
@@ -45,6 +46,33 @@ export function MetaSection({ delay = 0 }: MetaSectionProps) {
 						updateForm({ date: e.target.value })
 					}}
 				/>
+				<input
+					type='text'
+					placeholder={pdfFile ? '已导入本地 PDF，无需填写 URL' : 'PDF URL（可选，留空表示无 PDF）'}
+					className='bg-card w-full rounded-lg border px-3 py-2 text-sm'
+					value={form.pdf || ''}
+					disabled={!!pdfFile}
+					onChange={e => {
+						setPdfFile(null)
+						updateForm({ pdf: e.target.value })
+					}}
+				/>
+				<div className='text-secondary text-xs'>
+					导入本地 PDF 时这里不用填；发布后系统会自动写入 `/blogs/你的slug/xxx.pdf`。
+				</div>
+				{invalidPdfUrl && <div className='text-xs text-amber-600'>当前值不是 .pdf 链接，发布时会自动忽略。</div>}
+				{pdfFile && <div className='text-secondary text-xs'>已选择 PDF：{pdfFile.name}</div>}
+				{(pdfFile || form.pdf) && (
+					<button
+						type='button'
+						className='text-secondary rounded-lg border px-3 py-1 text-xs hover:bg-white/50'
+						onClick={() => {
+							setPdfFile(null)
+							updateForm({ pdf: '' })
+						}}>
+						清除 PDF
+					</button>
+				)}
 
 				<div className='flex items-center gap-2'>
 					<input
