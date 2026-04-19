@@ -127,6 +127,17 @@
     "category": "Large Language Model"
   },
   {
+    "slug": "rs",
+    "title": "rs",
+    "tags": [],
+    "date": "2026-04-19T01:00",
+    "summary": "",
+    "cover": "/blogs/rs/0ce3fb60d5ae8367.webp",
+    "pdf": "/blogs/rs/30657458b79f3785.png",
+    "hidden": false,
+    "category": ""
+  },
+  {
     "slug": "recommend",
     "title": "Recommendation System",
     "tags": [],
