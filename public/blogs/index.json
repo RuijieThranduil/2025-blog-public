@@ -1,20 +1,5 @@
 [
   {
-    "slug": "llm-pdf-demo",
-    "title": "LLM PDF 预览 Demo",
-    "tags": [
-      "LLM",
-      "PDF",
-      "Demo"
-    ],
-    "date": "2026-04-19T06:10",
-    "summary": "测试 PDF 内嵌预览模式（iframe）。",
-    "cover": "",
-    "hidden": false,
-    "category": "Large Language Model",
-    "pdf": "/blogs/llm-pdf-demo/llm-pdf-demo.pdf"
-  },
-  {
     "slug": "llm-evaluation",
     "title": "LLM · Evaluation 评估",
     "tags": [
@@ -125,28 +110,6 @@
     "cover": "",
     "hidden": false,
     "category": "Large Language Model"
-  },
-  {
-    "slug": "rs",
-    "title": "rs",
-    "tags": [],
-    "date": "2026-04-19T01:00",
-    "summary": "",
-    "cover": "/blogs/rs/0ce3fb60d5ae8367.webp",
-    "pdf": "/blogs/rs/30657458b79f3785.png",
-    "hidden": false,
-    "category": ""
-  },
-  {
-    "slug": "recommend",
-    "title": "Recommendation System",
-    "tags": [],
-    "date": "2026-04-19T00:54",
-    "summary": "",
-    "cover": "/blogs/recommend/0ce3fb60d5ae8367.webp",
-    "pdf": "file:///C:/Users/94903/Desktop/Recommendation_System.pdf",
-    "hidden": false,
-    "category": "学习笔记"
   },
   {
     "slug": "sql-interview",
