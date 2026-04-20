@@ -1,0 +1,9 @@
+{
+  "title": "DeepLearning · Transfer Learning 迁移学习",
+  "tags": ["DeepLearning", "TransferLearning", "Finetune"],
+  "date": "2026-04-19T07:39",
+  "summary": "预训练、特征迁移与 finetune 策略的半中文整理。",
+  "cover": "",
+  "hidden": false,
+  "category": "Deeplearning-TransferLearning"
+}
