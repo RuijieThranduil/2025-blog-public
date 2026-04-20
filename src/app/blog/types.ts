@@ -7,6 +7,7 @@ export type BlogIndexItem = {
 	cover?: string
 	hidden?: boolean
 	category?: string
+	guest?: boolean
 	pdf?: string
 }
 
@@ -18,6 +19,6 @@ export type BlogConfig = {
 	cover?: string
 	hidden?: boolean
 	category?: string
+	guest?: boolean
 	pdf?: string
 }
-
