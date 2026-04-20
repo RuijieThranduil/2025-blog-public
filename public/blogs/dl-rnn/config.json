@@ -1,0 +1,9 @@
+{
+  "title": "DeepLearning · Sequence Models 时序网络",
+  "tags": ["DeepLearning", "RNN", "LSTM"],
+  "date": "2026-04-19T07:23",
+  "summary": "RNN、LSTM、GRU 与长序列建模问题的半中文笔记。",
+  "cover": "",
+  "hidden": false,
+  "category": "Deeplearning-RNN"
+}
