@@ -1,0 +1,9 @@
+{
+  "title": "DeepLearning · Segmentation 图像分割",
+  "tags": ["DeepLearning", "Segmentation", "U-Net"],
+  "date": "2026-04-19T07:52",
+  "summary": "语义分割、实例分割与像素级预测的半中文整理。",
+  "cover": "",
+  "hidden": false,
+  "category": "Deeplearning-Segmentation"
+}
