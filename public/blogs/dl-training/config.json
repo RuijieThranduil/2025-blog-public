@@ -1,0 +1,9 @@
+{
+  "title": "DeepLearning · Training Playbook 训练手册",
+  "tags": ["DeepLearning", "Training", "Regularization"],
+  "date": "2026-04-19T07:25",
+  "summary": "Batch size、normalization、初始化和学习率的实战化整理。",
+  "cover": "",
+  "hidden": false,
+  "category": "Deeplearning-Training"
+}
