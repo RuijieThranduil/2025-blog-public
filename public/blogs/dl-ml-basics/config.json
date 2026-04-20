@@ -1,0 +1,9 @@
+{
+  "title": "DeepLearning · ML Basics 机器学习底座",
+  "tags": ["DeepLearning", "MachineLearning", "BiasVariance"],
+  "date": "2026-04-19T07:54",
+  "summary": "监督学习、损失函数、偏差方差与模型评估的半中文整理。",
+  "cover": "",
+  "hidden": false,
+  "category": "Deeplearning-MLBasics"
+}
