@@ -1,0 +1,9 @@
+{
+  "title": "DeepLearning · GAN 生成对抗",
+  "tags": ["DeepLearning", "GAN", "Generative"],
+  "date": "2026-04-19T07:22",
+  "summary": "Generator 与 Discriminator 的对抗训练逻辑与常见难点。",
+  "cover": "",
+  "hidden": false,
+  "category": "Deeplearning-GAN"
+}
