@@ -1,5 +1,16 @@
 [
   {
+    "slug": "test",
+    "title": "",
+    "tags": [],
+    "date": "2026-04-19T23:25",
+    "summary": "",
+    "pdf": "/blogs/test/bb850f03accbda15.pdf",
+    "hidden": false,
+    "category": "Guest · Haotian Ju",
+    "guest": true
+  },
+  {
     "slug": "dl-math",
     "title": "DeepLearning · Math 数学地基",
     "tags": [
@@ -341,17 +352,6 @@
     "summary": "",
     "cover": "",
     "pdf": "/blogs/teas/43ff68687a4748f1.png",
-    "hidden": false,
-    "category": ""
-  },
-  {
-    "slug": "test",
-    "title": "test",
-    "tags": [],
-    "date": "2026-04-19T01:28",
-    "summary": "",
-    "cover": "",
-    "pdf": "/blogs/test/43ff68687a4748f1.png",
     "hidden": false,
     "category": ""
   },
