@@ -1,0 +1,9 @@
+{
+  "title": "DeepLearning · Optimization 优化与收敛",
+  "tags": ["DeepLearning", "Optimization", "Adam"],
+  "date": "2026-04-19T07:40",
+  "summary": "SGD、Momentum、Adam 与优化地形的半中文工程笔记。",
+  "cover": "",
+  "hidden": false,
+  "category": "Deeplearning-Optimization"
+}
