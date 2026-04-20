@@ -1,5 +1,89 @@
 [
   {
+    "slug": "dl-foundations",
+    "title": "DeepLearning · Foundations 基础地图",
+    "tags": [
+      "DeepLearning",
+      "Foundations",
+      "Backprop"
+    ],
+    "date": "2026-04-19T07:26",
+    "summary": "从 tensor、forward/backward 到 activation 的半中文入门地图。",
+    "cover": "",
+    "hidden": false,
+    "category": "Deeplearning-Foundations"
+  },
+  {
+    "slug": "dl-training",
+    "title": "DeepLearning · Training Playbook 训练手册",
+    "tags": [
+      "DeepLearning",
+      "Training",
+      "Regularization"
+    ],
+    "date": "2026-04-19T07:25",
+    "summary": "Batch size、normalization、初始化和学习率的实战化整理。",
+    "cover": "",
+    "hidden": false,
+    "category": "Deeplearning-Training"
+  },
+  {
+    "slug": "dl-cnn",
+    "title": "DeepLearning · CNN 卷积网络",
+    "tags": [
+      "DeepLearning",
+      "CNN",
+      "Vision"
+    ],
+    "date": "2026-04-19T07:24",
+    "summary": "卷积、池化、感受野和经典 CNN 设计思路的半中文整理。",
+    "cover": "",
+    "hidden": false,
+    "category": "Deeplearning-CNN"
+  },
+  {
+    "slug": "dl-rnn",
+    "title": "DeepLearning · Sequence Models 时序网络",
+    "tags": [
+      "DeepLearning",
+      "RNN",
+      "LSTM"
+    ],
+    "date": "2026-04-19T07:23",
+    "summary": "RNN、LSTM、GRU 与长序列建模问题的半中文笔记。",
+    "cover": "",
+    "hidden": false,
+    "category": "Deeplearning-RNN"
+  },
+  {
+    "slug": "dl-gan",
+    "title": "DeepLearning · GAN 生成对抗",
+    "tags": [
+      "DeepLearning",
+      "GAN",
+      "Generative"
+    ],
+    "date": "2026-04-19T07:22",
+    "summary": "Generator 与 Discriminator 的对抗训练逻辑与常见难点。",
+    "cover": "",
+    "hidden": false,
+    "category": "Deeplearning-GAN"
+  },
+  {
+    "slug": "dl-vision",
+    "title": "DeepLearning · Detection & Segmentation 视觉任务",
+    "tags": [
+      "DeepLearning",
+      "Detection",
+      "Segmentation"
+    ],
+    "date": "2026-04-19T07:21",
+    "summary": "从 classification 走向 detection 和 segmentation 的任务视角整理。",
+    "cover": "",
+    "hidden": false,
+    "category": "Deeplearning-Vision"
+  },
+  {
     "slug": "llm-evaluation",
     "title": "LLM · Evaluation 评估",
     "tags": [
