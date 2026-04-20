@@ -23,6 +23,7 @@ import { saveBlogEdits } from './services/save-blog-edits'
 import { Check } from 'lucide-react'
 import { BlogCoverHoverPreview, useBlogCoverHover } from './components/blog-cover-hover'
 import { CategoryModal } from './components/category-modal'
+import { isGuestArticle, isGuestCategoryName } from '@/lib/guest-posts'
 
 type DisplayMode = 'day' | 'week' | 'month' | 'year' | 'category'
 
@@ -68,9 +69,10 @@ function BlogPageContent() {
 
 	const requestedCategory = searchParams.get('category')?.trim() || ''
 	const activeDisplayMode: DisplayMode = requestedCategory ? 'category' : displayMode
+	const isGuestCategoryPage = isGuestCategoryName(requestedCategory)
 	const displayItems = useMemo(() => {
 		const sourceItems = editMode ? editableItems : items
-		if (!requestedCategory) return sourceItems
+		if (!requestedCategory) return sourceItems.filter(item => !isGuestArticle(item))
 		return sourceItems.filter(item => (item.category || '未分类') === requestedCategory)
 	}, [editMode, editableItems, items, requestedCategory])
 
@@ -125,7 +127,9 @@ function BlogPageContent() {
 				if (aOrder !== bOrder) return aOrder - bOrder
 				return a.localeCompare(b)
 			}
+			// 按时间倒序排序
 			if (activeDisplayMode === 'week') {
+				// 周格式：YYYY-WW
 				const [yearA, weekA] = a.split('-W').map(Number)
 				const [yearB, weekB] = b.split('-W').map(Number)
 				if (yearA !== yearB) return yearB - yearA
@@ -167,24 +171,29 @@ function BlogPageContent() {
 		})
 	}, [])
 
+	// 全选所有文章
 	const handleSelectAll = useCallback(() => {
 		setSelectedSlugs(new Set(editableItems.map(item => item.slug)))
 	}, [editableItems])
 
+	// 全选/取消全选某个时间维度分组
 	const handleSelectGroup = useCallback(
 		(groupKey: string) => {
 			const group = groupedItems[groupKey]
 			if (!group) return
 
+			// 检查该分组是否所有文章都已选中
 			const allSelected = group.items.every(item => selectedSlugs.has(item.slug))
 
 			setSelectedSlugs(prev => {
 				const next = new Set(prev)
 				if (allSelected) {
+					// 如果已全选，则取消该分组的选择
 					group.items.forEach(item => {
 						next.delete(item.slug)
 					})
 				} else {
+					// 如果未全选，则全选该分组
 					group.items.forEach(item => {
 						next.add(item.slug)
 					})
@@ -195,6 +204,7 @@ function BlogPageContent() {
 		[groupedItems, selectedSlugs]
 	)
 
+	// 取消全选
 	const handleDeselectAll = useCallback(() => {
 		setSelectedSlugs(new Set())
 	}, [])
@@ -336,7 +346,7 @@ function BlogPageContent() {
 			/>
 
 			<div className='flex flex-col items-center justify-center gap-6 px-6 pt-24 max-sm:pt-24'>
-				{items.length > 0 && (
+				{(requestedCategory ? items.length > 0 : displayItems.length > 0) && (
 					<motion.div
 						initial={{ opacity: 0, scale: 0.6 }}
 						animate={{ opacity: 1, scale: 1 }}
@@ -375,7 +385,7 @@ function BlogPageContent() {
 					</div>
 				)}
 
-				{groupKeys.map(groupKey => {
+				{groupKeys.map((groupKey, index) => {
 					const group = groupedItems[groupKey]
 					if (!group) return null
 
@@ -480,7 +490,7 @@ function BlogPageContent() {
 						</motion.div>
 					)
 				})}
-				{items.length > 0 && !requestedCategory && (
+				{displayItems.length > 0 && !requestedCategory && (
 					<div className='text-center'>
 						<motion.a
 							initial={{ opacity: 0, scale: 0.6 }}
@@ -498,9 +508,11 @@ function BlogPageContent() {
 			</div>
 
 			<div className='pt-12'>
-				{!loading && items.length === 0 && <div className='text-secondary py-6 text-center text-sm'>暂无文章</div>}
-				{!loading && items.length > 0 && requestedCategory && displayItems.length === 0 && (
-					<div className='text-secondary py-6 text-center text-sm'>这个 guest 分类还没有文章，后续加上文章分类后这里会自动展示。</div>
+				{!loading && displayItems.length === 0 && !requestedCategory && <div className='text-secondary py-6 text-center text-sm'>暂无文章</div>}
+				{!loading && requestedCategory && displayItems.length === 0 && (
+					<div className='text-secondary py-6 text-center text-sm'>
+						{isGuestCategoryPage ? '这个 guest 分类还没有文章，后续分享文章后这里会自动展示。' : '这个分类还没有文章，后续加上分类后这里会自动展示。'}
+					</div>
 				)}
 				{loading && <div className='text-secondary py-6 text-center text-sm'>加载中...</div>}
 			</div>
@@ -509,6 +521,13 @@ function BlogPageContent() {
 				initial={{ opacity: 0, scale: 0.6 }}
 				animate={{ opacity: 1, scale: 1 }}
 				className='absolute top-4 right-6 flex items-center gap-3 max-sm:hidden'>
+				{isGuestCategoryPage && (
+					<Link
+						href={`/write?category=${encodeURIComponent(requestedCategory)}&guest=1&returnTo=${encodeURIComponent(`/blog?category=${requestedCategory}`)}`}
+						className='rounded-xl border bg-white/60 px-6 py-2 text-sm backdrop-blur-sm transition-colors hover:bg-white/80'>
+						分享文章
+					</Link>
+				)}
 				{editMode ? (
 					<>
 						{enableCategories && (
