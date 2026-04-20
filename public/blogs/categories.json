@@ -1,5 +1,9 @@
 {
   "categories": [
+    "Deeplearning-Optimization",
+    "Deeplearning-TransferLearning",
+    "Deeplearning-NLP",
+    "Deeplearning-ModelCompression",
     "Deeplearning-Foundations",
     "Deeplearning-Training",
     "Deeplearning-CNN",
