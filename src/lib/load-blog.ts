@@ -78,6 +78,7 @@ async function loadFromIndexFallback(slug: string): Promise<LoadedBlog | null> {
 			cover: item.cover,
 			hidden: item.hidden,
 			category: item.category,
+			guest: item.guest,
 			pdf: item.pdf
 		}
 
