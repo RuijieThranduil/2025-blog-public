@@ -1,0 +1,9 @@
+{
+  "title": "DeepLearning · CNN 卷积网络",
+  "tags": ["DeepLearning", "CNN", "Vision"],
+  "date": "2026-04-19T07:24",
+  "summary": "卷积、池化、感受野和经典 CNN 设计思路的半中文整理。",
+  "cover": "",
+  "hidden": false,
+  "category": "Deeplearning-CNN"
+}
