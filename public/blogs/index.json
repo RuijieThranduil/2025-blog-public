@@ -1,5 +1,61 @@
 [
   {
+    "slug": "dl-math",
+    "title": "DeepLearning · Math 数学地基",
+    "tags": [
+      "DeepLearning",
+      "Math",
+      "LinearAlgebra"
+    ],
+    "date": "2026-04-19T07:55",
+    "summary": "线代、概率、导数与特征值这些 deep learning 的底层语言。",
+    "cover": "",
+    "hidden": false,
+    "category": "Deeplearning-Math"
+  },
+  {
+    "slug": "dl-ml-basics",
+    "title": "DeepLearning · ML Basics 机器学习底座",
+    "tags": [
+      "DeepLearning",
+      "MachineLearning",
+      "BiasVariance"
+    ],
+    "date": "2026-04-19T07:54",
+    "summary": "监督学习、损失函数、偏差方差与模型评估的半中文整理。",
+    "cover": "",
+    "hidden": false,
+    "category": "Deeplearning-MLBasics"
+  },
+  {
+    "slug": "dl-detection",
+    "title": "DeepLearning · Detection 目标检测",
+    "tags": [
+      "DeepLearning",
+      "Detection",
+      "YOLO"
+    ],
+    "date": "2026-04-19T07:53",
+    "summary": "proposal、anchor、IoU 和 one-stage/two-stage 的任务化整理。",
+    "cover": "",
+    "hidden": false,
+    "category": "Deeplearning-Detection"
+  },
+  {
+    "slug": "dl-segmentation",
+    "title": "DeepLearning · Segmentation 图像分割",
+    "tags": [
+      "DeepLearning",
+      "Segmentation",
+      "U-Net"
+    ],
+    "date": "2026-04-19T07:52",
+    "summary": "语义分割、实例分割与像素级预测的半中文整理。",
+    "cover": "",
+    "hidden": false,
+    "category": "Deeplearning-Segmentation"
+  },
+  {
     "slug": "dl-optimization",
     "title": "DeepLearning · Optimization 优化与收敛",
     "tags": [
