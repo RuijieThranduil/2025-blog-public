@@ -1,0 +1,9 @@
+{
+  "title": "DeepLearning · Model Compression 模型压缩",
+  "tags": ["DeepLearning", "Compression", "Quantization"],
+  "date": "2026-04-19T07:37",
+  "summary": "剪枝、量化、蒸馏与部署效率的半中文整理。",
+  "cover": "",
+  "hidden": false,
+  "category": "Deeplearning-ModelCompression"
+}
