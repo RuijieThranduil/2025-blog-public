@@ -5,10 +5,12 @@ import { pushBlog } from '../services/push-blog'
 import { deleteBlog } from '../services/delete-blog'
 import { useWriteStore } from '../stores/write-store'
 import { useAuthStore } from '@/hooks/use-auth'
+import { useRouter } from 'next/navigation'
 
 export function usePublish() {
 	const { loading, setLoading, form, cover, images, pdfFile, mode, originalSlug } = useWriteStore()
 	const { isAuth, setPrivateKey } = useAuthStore()
+	const router = useRouter()
 
 	const onChoosePrivateKey = useCallback(
 		async (file: File) => {
@@ -32,13 +34,21 @@ export function usePublish() {
 
 			const successMsg = mode === 'edit' ? '更新成功' : '发布成功'
 			toast.success(successMsg)
+
+			if (mode === 'create' && typeof window !== 'undefined') {
+				const params = new URLSearchParams(window.location.search)
+				const returnTo = params.get('returnTo')
+				if (returnTo) {
+					router.push(returnTo)
+				}
+			}
 		} catch (err: any) {
 			console.error(err)
 			toast.error(err?.message || '操作失败')
 		} finally {
 			setLoading(false)
 		}
-	}, [form, cover, images, pdfFile, mode, originalSlug, setLoading])
+	}, [form, cover, images, pdfFile, mode, originalSlug, router, setLoading])
 
 	const onDelete = useCallback(async () => {
 		const targetSlug = originalSlug || form.slug
