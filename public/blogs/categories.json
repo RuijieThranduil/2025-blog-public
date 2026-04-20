@@ -1,5 +1,9 @@
 {
   "categories": [
+    "Deeplearning-Math",
+    "Deeplearning-MLBasics",
+    "Deeplearning-Detection",
+    "Deeplearning-Segmentation",
     "Deeplearning-Optimization",
     "Deeplearning-TransferLearning",
     "Deeplearning-NLP",
