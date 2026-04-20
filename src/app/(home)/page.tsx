@@ -7,6 +7,7 @@ import { ArrowUpRight, Mail, Pause, Settings2 } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useBlogIndex, type BlogIndexItem } from '@/hooks/use-blog-index'
 import { useConfigStore } from './stores/config-store'
+import { isGuestArticle } from '@/lib/guest-posts'
 import ConfigDialog from './config-dialog'
 import SnowfallBackground from '@/layout/backgrounds/snowfall'
 import ScrollFilledSVG from '@/svgs/scroll-filled.svg'
@@ -278,14 +279,15 @@ function PostRow({ blog, featured = false }: { blog: BlogIndexItem; featured?: b
 
 export default function Home() {
 	const { items, loading } = useBlogIndex()
+	const archiveItems = useMemo(() => items.filter(item => !isGuestArticle(item)), [items])
 	const { siteContent, configDialogOpen, setConfigDialogOpen } = useConfigStore()
 	const socialButtons = useMemo(
 		() => [...((siteContent.socialButtons || []) as SocialButton[])].sort((a, b) => a.order - b.order),
 		[siteContent.socialButtons]
 	)
 	const sortedPosts = useMemo(
-		() => [...items].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
-		[items]
+		() => [...archiveItems].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
+		[archiveItems]
 	)
 	const featuredPost = sortedPosts[0]
 	const recentPosts = sortedPosts.slice(1, 6)
