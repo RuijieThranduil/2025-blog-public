@@ -1,5 +1,11 @@
 {
   "categories": [
+    "Deeplearning-Foundations",
+    "Deeplearning-Training",
+    "Deeplearning-CNN",
+    "Deeplearning-RNN",
+    "Deeplearning-GAN",
+    "Deeplearning-Vision",
     "Large Language Model",
     "学习笔记",
     "代码实现",
