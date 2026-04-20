@@ -1,0 +1,9 @@
+{
+  "title": "DeepLearning · Foundations 基础地图",
+  "tags": ["DeepLearning", "Foundations", "Backprop"],
+  "date": "2026-04-19T07:26",
+  "summary": "从 tensor、forward/backward 到 activation 的半中文入门地图。",
+  "cover": "",
+  "hidden": false,
+  "category": "Deeplearning-Foundations"
+}
