@@ -1,5 +1,5 @@
 {
-	"title": "关于本站",
-	"description": "一个基于 Github 的现代化博客系统",
-	"content": "📦网站基于 Github 仓库完全存储，所有内容版本可控\n\n🚀无后端，无 serverless function，纯静态站点\n\n✏️文章通过可视化 UI 直接编辑并提交到 Github 仓库\n\n🔑所有用户都可以编辑，提交需要 Owner 的 Private Key\n\n## 技术栈\n\n- Next.js\n- React\n- TypeScript\n- Tailwind CSS\n- Motion\n- Github API"
+	"title": "About This Site",
+	"description": "A quiet, GitHub-backed publishing space for notes, essays, and ongoing research.",
+	"content": "This site is designed to feel simple on the surface and dependable underneath. It is a place for writing in public, collecting ideas, and publishing work without turning the process into overhead.\n\n📦 Every post is stored directly in a GitHub repository, so the entire archive stays versioned, portable, and easy to maintain.\n\n🚀 There is no traditional backend and no serverless layer in the publishing flow. The site is intentionally static, lightweight, and fast.\n\n✏️ Posts can be edited through a visual interface and committed straight back to the repository, which keeps writing approachable without losing the benefits of source control.\n\n🔑 Editing is open by design, while publishing remains protected through the owner's private key.\n\n## Principles\n\n- Write clearly and publish calmly.\n- Keep the system lightweight.\n- Make the archive durable.\n- Treat the blog as a long-term body of work, not a feed to optimize.\n\n## Tech Stack\n\n- Next.js\n- React\n- TypeScript\n- Tailwind CSS\n- Motion\n- GitHub API"
 }
