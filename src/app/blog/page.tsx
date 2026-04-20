@@ -127,9 +127,7 @@ function BlogPageContent() {
 				if (aOrder !== bOrder) return aOrder - bOrder
 				return a.localeCompare(b)
 			}
-			// 按时间倒序排序
 			if (activeDisplayMode === 'week') {
-				// 周格式：YYYY-WW
 				const [yearA, weekA] = a.split('-W').map(Number)
 				const [yearB, weekB] = b.split('-W').map(Number)
 				if (yearA !== yearB) return yearB - yearA
@@ -171,29 +169,24 @@ function BlogPageContent() {
 		})
 	}, [])
 
-	// 全选所有文章
 	const handleSelectAll = useCallback(() => {
 		setSelectedSlugs(new Set(editableItems.map(item => item.slug)))
 	}, [editableItems])
 
-	// 全选/取消全选某个时间维度分组
 	const handleSelectGroup = useCallback(
 		(groupKey: string) => {
 			const group = groupedItems[groupKey]
 			if (!group) return
 
-			// 检查该分组是否所有文章都已选中
 			const allSelected = group.items.every(item => selectedSlugs.has(item.slug))
 
 			setSelectedSlugs(prev => {
 				const next = new Set(prev)
 				if (allSelected) {
-					// 如果已全选，则取消该分组的选择
 					group.items.forEach(item => {
 						next.delete(item.slug)
 					})
 				} else {
-					// 如果未全选，则全选该分组
 					group.items.forEach(item => {
 						next.add(item.slug)
 					})
@@ -204,7 +197,6 @@ function BlogPageContent() {
 		[groupedItems, selectedSlugs]
 	)
 
-	// 取消全选
 	const handleDeselectAll = useCallback(() => {
 		setSelectedSlugs(new Set())
 	}, [])
@@ -350,7 +342,7 @@ function BlogPageContent() {
 					<motion.div
 						initial={{ opacity: 0, scale: 0.6 }}
 						animate={{ opacity: 1, scale: 1 }}
-						className='card btn-rounded relative mx-auto flex items-center gap-1 p-1 max-sm:hidden'>
+						className='surface-card btn-rounded relative mx-auto flex items-center gap-1 p-1 max-sm:hidden'>
 						{[
 							{ value: 'day', label: '日' },
 							{ value: 'week', label: '周' },
@@ -374,7 +366,7 @@ function BlogPageContent() {
 				)}
 
 				{requestedCategory && (
-					<div className='card flex w-full max-w-[840px] items-center justify-between gap-4 px-5 py-4 text-sm text-[#52626f] max-sm:flex-col max-sm:items-start'>
+					<div className='surface-card flex w-full max-w-[840px] items-center justify-between gap-4 px-5 py-4 text-sm text-[#52626f] max-sm:flex-col max-sm:items-start'>
 						<div>
 							<div className='text-xs font-medium tracking-[0.18em] text-[#8fa0ad] uppercase'>Guest Category</div>
 							<div className='mt-1 text-base font-medium text-[#243442]'>{requestedCategory}</div>
@@ -396,7 +388,7 @@ function BlogPageContent() {
 							initial={{ opacity: 0, scale: 0.95 }}
 							whileInView={{ opacity: 1, scale: 1 }}
 							transition={{ delay: INIT_DELAY / 2 }}
-							className='card relative w-full max-w-[840px] space-y-6'>
+							className='surface-card relative w-full max-w-[840px] space-y-6'>
 							<div className='mb-3 flex items-center justify-between gap-3 text-base'>
 								<div className='flex items-center gap-3'>
 									<div className='font-medium'>{getGroupLabel(groupKey)}</div>
@@ -499,7 +491,7 @@ function BlogPageContent() {
 							whileTap={{ scale: 0.95 }}
 							href='https://juejin.cn/user/2427311675422382/posts'
 							target='_blank'
-							className='card text-secondary static inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs'>
+							className='surface-card text-secondary static inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs'>
 							<JuejinSVG className='h-4 w-4' />
 							更多
 						</motion.a>
