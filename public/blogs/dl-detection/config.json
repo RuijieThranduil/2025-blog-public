@@ -1,0 +1,9 @@
+{
+  "title": "DeepLearning · Detection 目标检测",
+  "tags": ["DeepLearning", "Detection", "YOLO"],
+  "date": "2026-04-19T07:53",
+  "summary": "proposal、anchor、IoU 和 one-stage/two-stage 的任务化整理。",
+  "cover": "",
+  "hidden": false,
+  "category": "Deeplearning-Detection"
+}
