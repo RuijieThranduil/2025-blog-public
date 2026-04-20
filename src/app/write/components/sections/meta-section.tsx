@@ -4,6 +4,7 @@ import { TagInput } from '../ui/tag-input'
 import { useCategories } from '@/hooks/use-categories'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
 import { Select } from '@/components/select'
+import { isGuestCategoryName } from '@/lib/guest-posts'
 
 type MetaSectionProps = {
 	delay?: number
@@ -12,7 +13,7 @@ type MetaSectionProps = {
 export function MetaSection({ delay = 0 }: MetaSectionProps) {
 	const { form, updateForm, pdfFile, setPdfFile } = useWriteStore()
 	const invalidPdfUrl = !!form.pdf && !/\.pdf([?#].*)?$/i.test(form.pdf)
-	console.log(form.date)
+	const guestMode = !!form.guest || isGuestCategoryName(form.category)
 
 	const { categories } = useCategories()
 	const { siteContent } = useConfigStore()
@@ -37,6 +38,7 @@ export function MetaSection({ delay = 0 }: MetaSectionProps) {
 				{enableCategories && (
 					<Select className='w-full text-sm' value={form.category || ''} onChange={value => updateForm({ category: value })} options={categoryOptions} />
 				)}
+				{guestMode && <div className='rounded-xl border border-[#d6ece8] bg-[#eef9f6] px-3 py-2 text-xs leading-6 text-[#2f6b63]'>这篇文章会作为 guest 分享发布，只会出现在对应的 Guest 分类页，不会进入首页「近期文章」。</div>}
 				<input
 					type='datetime-local'
 					placeholder='日期'
