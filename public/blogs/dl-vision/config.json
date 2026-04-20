@@ -1,0 +1,9 @@
+{
+  "title": "DeepLearning · Detection & Segmentation 视觉任务",
+  "tags": ["DeepLearning", "Detection", "Segmentation"],
+  "date": "2026-04-19T07:21",
+  "summary": "从 classification 走向 detection 和 segmentation 的任务视角整理。",
+  "cover": "",
+  "hidden": false,
+  "category": "Deeplearning-Vision"
+}
